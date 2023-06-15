@@ -30,9 +30,11 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){ // LOGGER ACTION
 			include 'views/Membre/compte_edit.php';
 			$p="compte_form";
 			//header('location:' . $p .'?type=' . $type . '&message=' . $message);
+			break;
 		case 'annonce_edit':
 			include 'views/Membre/annonce_edit.php';
 			$p="annonce_form";
+			break;
 	}
 }
 
@@ -65,10 +67,24 @@ switch ($p) {
 	case 'signup': //champ caché hidden value signup dans fichier signup.php
 		include "views/signup.php";	
 		break;
-    case 'espace': //champ caché hidden value signup dans fichier signup.php
+	case 'annonces':
+		$id=null;
+		$annonces=null;
+		if(isset($_GET["id"]) && is_numeric($_GET["id"]) && $_GET["id"]>=0){
+			$id = $_GET['id'];
+			$annonces=$annonces[$id];
+		}
+		if($annonces){
+			echo "test";
+			include "views/annonces.php";
+		}else{
+			echo "Merde";
+		} 		
+		break;	
+    case 'espace':
 		include "views/Membre/espace.php";	
 		break;
-    case 'annonces_user': //champ caché hidden value signup dans fichier signup.php
+    case 'annonces_user': 
         include "views/Membre/annonces.php";	
         break;  
     case 'annonces_user_form':
@@ -85,11 +101,8 @@ switch ($p) {
 		/* if($annonce){
 			include "views/Membre/annonce_form.php";
 		}  */
-        include "views/Membre/annonce_form.php";	
+       include "views/Membre/annonce_form.php";	
         break;
-    /* case 'annonces_user_edit': 
-        include "views/Membre/annonce_edit.php";	
-        break; */  
     case 'annonces_user_del': 
         include "views/Membre/annonce_delete.php";	
         break;             
@@ -101,7 +114,19 @@ switch ($p) {
         break;             
     case 'contact':
         include "views/contact.php";	
-        break;        
+        break; 
+	case 'admin':
+		include "views/Admin/admin.php";	
+		break;
+	case 'categories':
+		include "views/Admin/categories.php";	
+		break;
+	case 'categorie_form':
+		include "views/Admin/categorie_form.php";	
+		break;	
+	case 'etats':
+		include "views/Admin/etats.php";	
+		break;			
 	default:
 		include "views/home.php";	//si $p vide c'est une page HOME ; $p = $_GET['p'] ?? ""; sinon "" vide
 } 

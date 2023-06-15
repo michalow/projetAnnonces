@@ -47,7 +47,7 @@ if(isset($_SESSION['id'])) {
     <table class='table table-striped'>
         <thead>
             <tr>
-            <th scope='col'>Id</th>
+                <th scope='col'>Id</th>
                 <th scope='col'>Pseudo</th>
                 <th scope='col'>Prénom</th>
                 <th scope='col'>Nom</th>

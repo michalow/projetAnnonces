@@ -1,8 +1,8 @@
 <?php
 
-require_once '../../models/functions.php'; 
+/* require_once '../../models/functions.php'; 
 include_once '../common/header.php'; 
-include_once '../common/admin_nav.php';
+include_once '../common/admin_nav.php'; */
 
 // Pour éviter de dupliquer le code, ce formulaire sera utiliser pour créer ou modifier une categorie. Si l'url est appelée avec id= alors nous l'utiliserons pour éditer l'abo avec l'id spécifié. 
 if(isset($_GET['id'])) {
@@ -51,4 +51,4 @@ $categories = getCategories();
     </form>
 </div>
 
-<?php include_once '../common/footer.php' ?>
+<!-- <?php include_once '../common/footer.php' ?> -->

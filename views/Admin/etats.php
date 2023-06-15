@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../models/functions.php';
+/* require_once '../../models/functions.php';
 require_once '../../models/functions2.php';
 include_once '../common/header.php';
-include_once '../common/admin_nav.php';
+include_once '../common/admin_nav.php'; */
 
 try {
  $etats=getEtats();
@@ -50,4 +50,4 @@ try {
     </div>
 </div>
 
-<?php include_once '../common/footer.php' ?>
+<!-- <?php include_once '../common/footer.php' ?> -->

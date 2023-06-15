@@ -93,7 +93,7 @@ var_dump($edit); */
         </div>
         <div class='form-group my-3'>
             <label for='mdp'>Mot de passe</label>
-            <input type='texte' name='mdp' class='form-control' id='mdp' placeholder='Enter email' value='<?= isset($member['password']) ? htmlentities($member['password'])  : '' ?>'>
+            <input type='password' name='mdp' class='form-control' id='mdp' placeholder='Enter email' value='<?= isset($member['password']) ? htmlentities($member['password'])  : '' ?>'>
         </div>
         <button type='submit' class='btn btn-primary my-3' name='submit'>Envoyer</button>
     </form>
