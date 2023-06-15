@@ -1,0 +1,17 @@
+.row{
+	width: 80%;
+	text-align: center;
+}
+
+.alert{
+	border-radius: 5px;
+	padding: 1rem;
+	background-color: #f8d7da;
+	border: solid 1px #842029;
+	color: #842029;
+}
+.alert-success{
+	background-color: #eadeff;
+	border: solid 1px #302b63;
+	color: #302b63;
+}
