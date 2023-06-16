@@ -1,16 +1,19 @@
-<h2>Articles récents</h2>
-            <ul>
-<?php
+<h2>Détail d'annonce</h2>
 
-$annonces=getAnnonces();
-var_dump($annonces);
-            $index = 0 ;
-            foreach($annonces as $annonce)
-            {
-                ?>
-                <li><a href="index.php?p=annonces&id=<?= $index ?>"><?= $annonce ?></a></li>
-                <?php
-                $index++ ;
-            }
-    ?>
-            </ul>
+<?php
+$idAnnonce=$_GET['id'];
+$annonce=$_GET['p'];
+
+/* var_dump($idAnnonce); */
+
+$ann=getAnnoncesPhotos();
+/* var_dump($ann); */
+?>
+    <div>
+    <img src="<?= $ann[$idAnnonce]["url"];?>" alt="<?= $ann[$idAnnonce]["titre"];?>" width="250" height="250">
+    </div>
+	<div><?= $ann[$idAnnonce]["titre"];?></div>
+    <div><?= $ann[$idAnnonce]["description"];?></div>
+	<div><?= $ann[$idAnnonce]["prix_vente"];?></div>
+    <div><?= $ann[$idAnnonce]["id_etat"];?></div>
+<?php 

@@ -347,7 +347,7 @@ function resetPwd() { $token=htmlspecialchars($_POST['token']);
 }
 
 function ContactEmail(){
-    if($_SERVER['REQUEST_METHOD'==='POST']){
+    if($_SERVER['REQUEST_METHOD']==='POST'){
         if(isset($_POST['email'])){
             $_POST['email']=filter_var(filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL), FILTER_VALIDATE_EMAIL);
             if(!empty($_POST['message'])){

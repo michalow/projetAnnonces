@@ -1,7 +1,3 @@
-<?php 
-/* require_once __DIR__.'/models/functions.php';
-require_once __DIR__.'/models/functions2.php'; */
- ?>
 <div class="main">
 	<div class="home">
 		<h1>Petites annonces HOME</h1>
@@ -10,15 +6,17 @@ require_once __DIR__.'/models/functions2.php'; */
 		<!-- https://getbootstrap.com/docs/3.3/components/#thumbnails -->
 		
 		<?php 
-		$annoncesPhotos=getAnnoncesPhotos();
+		$annoncesPhotos=getAnnoncesPhotos(); //annonces validées
 		foreach($annoncesPhotos as $annoncePhoto){
 			?>
 			<div>
-				<div><img src="<?= $annoncePhoto["url"];?>" alt="<?= $annoncePhoto["titre"];?>" width="150" height="150"></div>
+				<a href="index.php?p=annonces&id=<?= $annoncePhoto["id"] ?>">
+				<div><img src="<?= $annoncePhoto["url"];?>" alt="<?= $annoncePhoto["titre"];?>" width="150" height="150"></div></a>
 				<div><?= $annoncePhoto["titre"];?></div>
 				<div><?= $annoncePhoto["prix_vente"];?></div>
 			</div>
-			<?php } ?>
+			<?php
+		} ?>
 		
 		</section>
 		<?php if(!$logged):?>

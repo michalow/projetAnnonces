@@ -1,7 +1,5 @@
 <?php
 
-/* var_dump($_SESSION['id']); */
-
 if(isset($_SESSION['id'])) {
     // récupérer $id dans les paramètres d'URL
     $id=$_SESSION['id'];
@@ -13,7 +11,7 @@ if(isset($_SESSION['id'])) {
         $membersQuery = $db->prepare('SELECT * FROM membres WHERE id= :id');
         $membersQuery->execute(['id' => $id]);
         
-        $member = $membersQuery->fetch(PDO::FETCH_ASSOC); //cette variable récupère les données selon id et sert à afficher dans formulaire prérempli (champ value)  
+        $member = $membersQuery->fetch(PDO::FETCH_ASSOC);   
         
     } catch (Exception $e) {
         echo $e->getMessage();

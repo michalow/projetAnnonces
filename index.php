@@ -33,8 +33,12 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){ // LOGGER ACTION
 			break;
 		case 'annonce_edit':
 			include 'views/Membre/annonce_edit.php';
-			$p="annonce_form";
+			$p="annonces_user_form";
 			break;
+		case 'contact':
+			$message=contactEmail();
+			$p="contact";
+			break;		
 	}
 }
 
@@ -72,13 +76,12 @@ switch ($p) {
 		$annonces=null;
 		if(isset($_GET["id"]) && is_numeric($_GET["id"]) && $_GET["id"]>=0){
 			$id = $_GET['id'];
-			$annonces=$annonces[$id];
+			$annonces=getAnnoncesPhotos();
 		}
 		if($annonces){
-			echo "test";
 			include "views/annonces.php";
 		}else{
-			echo "Merde";
+			echo "Cet article n'existe pas";
 		} 		
 		break;	
     case 'espace':

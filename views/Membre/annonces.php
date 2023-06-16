@@ -3,7 +3,6 @@
 if(isset($_SESSION['id'])){
     $user=$_SESSION['id'];
     $annoncesByUser=getAnnoncesByUser($user);
-    var_dump(getAnnoncesByUser($_SESSION['id']));
 }
 
 ?>
@@ -34,7 +33,7 @@ if(isset($_SESSION['id'])){
             <?php foreach ($annoncesByUser as $annonce) : ?>
                 <tr>
                     <!-- id from DB -->
-                    <td><?= $annonce['id'] ?></td>
+                    <td><?= $annonce['id_annonce'] ?></td>
                     <td><?= htmlentities($annonce['titre'] ?? '') ?></td>
                     <td><?= htmlentities($annonce['description'] ?? '') ?></td>
                     <td><?= htmlentities($annonce['date_creation'] ?? '') ?></td>
@@ -49,9 +48,9 @@ if(isset($_SESSION['id'])){
                     <td><?= htmlentities($annonce['url'] ?? '') ?></td>
                     <td>
                     <!--   description	duree_de_publication	prix_vente	cout_annonce	date_validation	date_fin_publication	id_etat	id_utilisateur	date_vente	id_acheteur	 -->
-                    <a class='btn btn-info' href='?p=annonces_user_edit?id=<?= $annonce['id'] ?>' role='button'>Vaier</a>
-                    <a class='btn btn-primary' href='?p=annonces_user_form?id=<?= $annonce['id'] ?>' role='button'>Modifier</a>
-                    <a class='btn btn-danger' href='?p=annonces_user_del?id=<?= $annonce['id'] ?>' role='button'>Supprimer</a>
+                    <a class='btn btn-info' href='?p=annonces_user_edit&id=<?= $annonce['id_annonce'] ?>' role='button'>Vaier</a>
+                    <a class='btn btn-primary' href='?p=annonces_user_form&id=<?= $annonce['id_annonce'] ?>' role='button'>Modifier</a>
+                    <a class='btn btn-danger' href='?p=annonces_user_del&id=<?= $annonce['id_annonce'] ?>' role='button'>Supprimer</a>
                         
                         <!-- ???? valider message que c'était bien valider comme pour catégorie si supprimée ou pas -->
                     </td>

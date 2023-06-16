@@ -1,8 +1,5 @@
 <?php
 
-/* var_dump($_SESSION['id']); */
-
-// Pour éviter de dupliquer le code, ce formulaire sera utiliser pour créer ou modifier une categorie. Si l'url est appelée avec id= alors nous l'utiliserons pour éditer l'abo avec l'id spécifié. 
 if(isset($_SESSION['id'])) {
     // récupérer $id dans les paramètres d'URL
     $id=$_SESSION['id'];
