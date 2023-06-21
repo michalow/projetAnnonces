@@ -295,13 +295,31 @@ function waitReset() {
     $email=filter_var(filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL), FILTER_VALIDATE_EMAIL);
     if(getUserByEmail($email)){
         $token=bin2hex(random_bytes(16));
-        $perim=time()+1200;
+        $perim=time();
+        var_dump($perim);
+        $perim=date('Y-m-d H:i:s');
+        var_dump($perim);
+        $perimAdd=time()+1200;
+        var_dump($perimAdd);
+        $perimAdd=date('Y-m-d H:i:s');
+        var_dump($perimAdd);
+        /* $perimSec=$perim/1000;
+        var_dump($perim);
+        var_dump($perimSec);
+        $perimSec=date('Y-m-d H:i:s');
+        var_dump($perimSec); */
         try {
             $db = connect();
-            $query=$db->prepare('UPDATE membres SET token = :token, date_validite_token = :perim WHERE email = :email');
-            $query->execute(['email'=> $email, 'perim'=> $perim , 'token'=> $token]);
+            $query=$db->prepare('UPDATE membres SET 
+            token = :token, 
+            date_validite_token = :perim 
+            WHERE email = :email');
+            $query->execute(
+                ['token'=> $token,  
+                'perim'=> $perim,
+                'email'=> $email]);
             if ($query->rowCount()){
-                $content="<p><a href='1006/index.php?p=reset&t=$token'>Merci de cliquer sur ce lien pour réinitialiser votre mot de passe</a></p>";
+                $content="<p><a href='projetAnnonces/index.php?p=reset&t=$token'>Merci de cliquer sur ce lien pour réinitialiser votre mot de passe</a></p>";
                 $headers = array(
                     'MIME-Version' => '1.0',
                     'Content-type' => 'text/html; charset=iso-8859-1',
@@ -320,8 +338,8 @@ function resetPwd() { $token=htmlspecialchars($_POST['token']);
   $user=getUserByToken($token);
   if($user){
       if (time()<$user['date_validite_token']){
-          if ($_POST['password']===$_POST['password_conf']){
-              if(preg_match("/^(?=.\d)(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.*[\W]).{8,}$/", $_POST['password'])){                  
+          if ($_POST['password']===$_POST['password_conf']){    
+            if(preg_match("/^(?=.*\d)(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}$/", $_POST['password'])) {             
                 $pwd=password_hash($_POST['password'], PASSWORD_DEFAULT);
                   try {
                       $db = connect();

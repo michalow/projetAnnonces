@@ -5,10 +5,27 @@ if(isset($_SESSION['id'])){
     $annoncesByUser=getAnnoncesByUser($user);
 }
 
+$categories = getCategories();
+
 ?>
+<?php if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
+    <div class='row'>
+        <div class='alert alert-success'>
+            Succès! <?= $_GET['message'] ?>
+        </div>
+    </div>
+<?php elseif (!empty($_GET['type']) && ($_GET['type'] === 'error')) : ?>
+    <div class='row'>
+        <div class='alert alert-danger'>
+            Erreur! <?= $_GET['message'] ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 <div class='row'>
 <h1 class='col-md-12 text-center border border-dark text-white bg-primary'>Annonces</h1>
+</div>
+<div class='row'>
     <table class='table table-striped'>
         <thead>
             <tr>
@@ -30,7 +47,9 @@ if(isset($_SESSION['id'])){
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($annoncesByUser as $annonce) : ?>
+            <?php foreach ($annoncesByUser as $annonce) : 
+                var_dump($annoncesByUser);
+                ?>
                 <tr>
                     <!-- id from DB -->
                     <td><?= $annonce['id_annonce'] ?></td>
@@ -43,12 +62,12 @@ if(isset($_SESSION['id'])){
                     <td><?= htmlentities($annonce['date_validation'] ?? '') ?></td>
                     <td><?= htmlentities($annonce['fin_publication'] ?? '') ?></td>
                     <td><?= htmlentities($annonce['date_vente'] ?? '') ?></td>
-                    <td><?= htmlentities($annonce['nom_categorie'] ?? '') ?></td>
+                    <td><?= htmlentities($annonce['id'] ?? '') ?></td>
                     <td><?= htmlentities($annonce['nom'] ?? '') ?></td>
-                    <td><?= htmlentities($annonce['url'] ?? '') ?></td>
+                    <td><img src="<?= htmlentities($annonce['url'] ?? '') ?>" alt="" width="120" height="120"></td>
                     <td>
                     <!--   description	duree_de_publication	prix_vente	cout_annonce	date_validation	date_fin_publication	id_etat	id_utilisateur	date_vente	id_acheteur	 -->
-                    <a class='btn btn-info' href='?p=annonces_user_edit&id=<?= $annonce['id_annonce'] ?>' role='button'>Vaier</a>
+                    <a class='btn btn-info' href='?p=annonces_user_edit&id=<?= $annonce['id_annonce'] ?>' role='button'>Valier</a>
                     <a class='btn btn-primary' href='?p=annonces_user_form&id=<?= $annonce['id_annonce'] ?>' role='button'>Modifier</a>
                     <a class='btn btn-danger' href='?p=annonces_user_del&id=<?= $annonce['id_annonce'] ?>' role='button'>Supprimer</a>
                         

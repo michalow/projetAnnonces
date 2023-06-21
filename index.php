@@ -91,19 +91,6 @@ switch ($p) {
         include "views/Membre/annonces.php";	
         break;  
     case 'annonces_user_form':
-		/* ?id=$annonce['id'] */
-		/* $idAnnonce=null;
-		$annonce=null;
-		if(isset($_GET["id"]) && is_numeric($_GET["id"]) && $_GET["id"]>=0){
-			$idAnnonce = $_GET['id'];
-			$annonce=$annonce[$id];
-		}else{
-			echo 'TEST';
-			var_dump($_GET);
-		} */
-		/* if($annonce){
-			include "views/Membre/annonce_form.php";
-		}  */
        include "views/Membre/annonce_form.php";	
         break;
     case 'annonces_user_del': 

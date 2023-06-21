@@ -1,7 +1,7 @@
 <?php
 require_once 'functions.php';
 
-function alertMessage() {
+function alertMessage(){
 if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
     <div class='row'>
         <div class='alert alert-success'>
@@ -14,7 +14,7 @@ if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
             Erreur! <?= $_GET['message'] ?>
         </div>
     </div>
-<?php endif; } 
+<?php endif;} 
 
 function getAnnoncesPhotos(){
     /*  SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, photos.url FROM annonces INNER JOIN photos ON annonces.id=photos.id_annonce WHERE annonces.date_validation IS NOT NULL ORDER BY date_validation DESC; */
@@ -31,7 +31,23 @@ function getAnnoncesByUser($id){
     try {
         $db = connect();
     
-        $annoncesQuery = $db->prepare('SELECT * FROM annonces INNER JOIN photos ON annonces.id=photos.id_annonce INNER JOIN etats ON annonces.id_etat=etats.id INNER JOIN categories_annonces ON annonces.id=categories_annonces.id_annonce WHERE id_utilisateur=:id_utilisateur');
+        $annoncesQuery = $db->prepare('SELECT * FROM annonces LEFT JOIN photos ON annonces.id=photos.id_annonce LEFT JOIN etats ON annonces.id_etat=etats.id LEFT JOIN categories_annonces ON annonces.id=categories_annonces.id_annonce WHERE id_utilisateur=:id_utilisateur');
+        $annoncesQuery->execute(['id_utilisateur' => $id]);
+        if($annoncesQuery->rowCount()){
+           return $annoncesQuery->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            echo 'Vous avez pas d\'annoces';
+        }   
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }    
+}
+
+function getAnnonceByID($id){
+    try {
+        $db = connect();
+    
+        $annoncesQuery = $db->prepare('SELECT * FROM annonces LEFT JOIN photos ON annonces.id=photos.id_annonce LEFT JOIN etats ON annonces.id_etat=etats.id LEFT JOIN categories_annonces ON annonces.id=categories_annonces.id_annonce WHERE id_utilisateur=:id_utilisateur');
         $annoncesQuery->execute(['id_utilisateur' => $id]);
         if($annoncesQuery->rowCount()){
            return $annoncesQuery->fetchAll(PDO::FETCH_ASSOC);

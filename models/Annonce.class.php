@@ -1,6 +1,6 @@
 <?php
 
-class Annonce extends Model
+class Annonce
 {
     private $id;
     private $title;
