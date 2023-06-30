@@ -1,31 +1,74 @@
-<div class="main">
-	<div class="home">
-		<h1>Petites annonces HOME</h1>
-		<section class="recent">
+<section>
+<h1>Petites annonces</h1>
 
-		<!-- https://getbootstrap.com/docs/3.3/components/#thumbnails -->
+<div class="container-fluid">
+    <div class="row">
+  	
+	<!-- <div class="col-3">
+            <div class="element d-flex h-100 flex-column justify-content-between">
+                <div class="inner d-flex h-100 flex-column align-items-center justify-content-center">
+                    <span>&nbsp;</span>
+                    <img class="img-fluid" src="http://www.comohacercrepes.com//ImagenesComoHacerCrepes/ImagenesCrepes/receta-crepes-masa-thermomix.jpg">
+                    <p>Some text</p>
+                </div>
+                <a href>Link</a>
+            </div>
+        </div> -->
+	<?php 
+	$annoncesPhotos=getAnnoncesPhotos(); 
+	foreach($annoncesPhotos as $annoncePhoto) :
+	?>
+	<div class="col-3">
+            <div class="element d-flex h-100 flex-column justify-content-between">
+                <div class="inner d-flex h-100 flex-column align-items-center justify-content-center">
+                    <span>&nbsp;</span>
+					<a href="index.php?p=annonces&id=<?= $annoncePhoto["id"] ?>" class="">
+					<img src="<?= $annoncePhoto["url"];?>" alt="<?= $annoncePhoto["titre"];?>" width="" height="" class="img-fluid"></a>	
+					<p><?= $annoncePhoto["titre"];?></p>
+					<p><?= $annoncePhoto["prix_vente"];?></p>
+				</div>	
+			</div>		
+	</div>					
+	<?php endforeach; ?>
 		
-		<?php 
-		$annoncesPhotos=getAnnoncesPhotos(); //annonces validées
-		foreach($annoncesPhotos as $annoncePhoto){
-			?>
-			<div>
-				<a href="index.php?p=annonces&id=<?= $annoncePhoto["id"] ?>">
-				<div><img src="<?= $annoncePhoto["url"];?>" alt="<?= $annoncePhoto["titre"];?>" width="150" height="150"></div></a>
-				<div><?= $annoncePhoto["titre"];?></div>
-				<div><?= $annoncePhoto["prix_vente"];?></div>
-			</div>
-			<?php
-		} ?>
+	</div>
+	</section>
+
+
+	<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only"></span>
+        </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only"></span>
+        </a>
+    </li>
+  </ul>
+</nav>
 		
-		</section>
-		<?php if(!$logged):?>
-		<a class="button" href="?p=signup">Créer un compte</a>
-		<a class="button" href="?p=signup">Se connecter</a>
-
-		<?php else :; ?>
-		<a href="?p=espace">Espace Membre</a>
-
-		<?php endif ; ?>
 	</div>
 </div>	
+
+<!-- <div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <div class="element d-flex h-100 flex-column justify-content-between">
+                <div class="inner d-flex h-100 flex-column align-items-center justify-content-center">
+                    <span>&nbsp;</span>
+                    <img class="img-fluid" src="http://www.comohacercrepes.com//ImagenesComoHacerCrepes/ImagenesCrepes/receta-crepes-masa-thermomix.jpg">
+                    <p>Some text</p>
+                </div>
+                <a href>Link</a>
+            </div>
+        </div>
+    </div>
+</div> -->

@@ -73,7 +73,7 @@ if(isset($_SESSION['id'])) {
                     <td><?= htmlentities($member['ville'] ?? '') ?></td>
                     <td><?= htmlentities($member['date_inscription'] ?? '') ?></td>
                     <td><?= htmlentities($member['cagnotte'] ?? '') ?></td>
-                    <td><a class='btn btn-success' href='?p=compte_form' role='button'>Modifier mes données personnelles</a></td>
+                    <td><a class='btn btn-success' href='index.php?p=compte_form' role='button'>Modifier mes données personnelles</a></td>
                 </tr>
         </tbody>
     </table>

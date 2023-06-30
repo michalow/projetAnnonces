@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../models/functions.php';
+/* require_once '../../models/functions.php';
 require_once '../../models/functions2.php';
 include_once '../common/header.php';
-include_once '../common/admin_nav.php';
+include_once '../common/admin_nav.php'; */
 
 try {
     $db = connect();
@@ -21,6 +21,7 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage();
 }
+
 
 ?>
 
@@ -44,7 +45,8 @@ try {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($members as $member) : ?>
+            <?php foreach ($members as $member) :
+                var_dump($_SESSION); ?>
                 <tr>
                     <td><?= $member['id'] ?></td>
                     <td><?= htmlentities($member['prenom'] ?? '') ?></td>

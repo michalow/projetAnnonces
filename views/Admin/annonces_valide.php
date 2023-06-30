@@ -1,5 +1,5 @@
 <?php
-require_once '../../models/functions.php';
+/* require_once '../../models/functions.php' */;
 
 // L'ID est-il dans les paramètres d'URL?
 if (isset($_GET['id'])) {
@@ -15,10 +15,10 @@ if (isset($_GET['id'])) {
         $announcementsQuery->execute(['id' => $id]);
         if($announcementsQuery->rowCount()){
             $type = 'success';
-            $message = 'Annonce a été validée';
+            $message = ['Annonce a été validée'];
         } else {
             $type = 'error';
-            $message = 'Annonce n\'a pas été validée';
+            $message = ['Annonce n\'a pas été validée'];
         }
 
         $announcements = $announcementsQuery->fetch(PDO::FETCH_ASSOC);
@@ -26,14 +26,14 @@ if (isset($_GET['id'])) {
         
     } catch (Exception $e) {
         $type = 'error';
-        $message = 'Exception message: ' . $e->getMessage();
+        $message = ['Exception message: ' . $e->getMessage()];
     }
     
     $announcementsQuery = null;
     $db = null;
 
     // Redirection vers la page principale des categories en passant le message et son type en variables GET
-    header('location:' . 'annonces.php?type=' . $type . '&message=' . $message);
+/*     header('location:' . 'annonces.php?type=' . $type . '&message=' . $message);
 } else {
-    header('location:' . 'index.php');
+    header('location:' . 'index.php'); */
 }

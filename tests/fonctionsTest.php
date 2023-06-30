@@ -1,6 +1,7 @@
 <?php
-
-function waitReset() {
+$_GET['p']="tests";
+echo "HELLO";
+/* function waitReset() {
     $email=filter_var(filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL), FILTER_VALIDATE_EMAIL);
     if(getUserByEmail($email)){
         $token=bin2hex(random_bytes(16));
@@ -18,12 +19,15 @@ function waitReset() {
                     'X-Mailer' => 'PHP/' . phpversion()
                 );
                 mail($email,"Réinitialisation de mot de passe", $content, $headers);
-                return /* header(localisation: ); */ array("success", "Vous allez recevoir un mail pour réinitialiser votre mot de passe".$content);
+                return /* header(localisation: ); array("success", "Vous allez recevoir un mail pour réinitialiser votre mot de passe".$content);
             }else array("error", "Problème lors du process de réinitialisation");
         } catch (Exception $e) {
             return array("error",  $e->getMessage());
         }
     }else array("error", "Aucun compte ne correspond à cet email.");
-}
+} */
+
+
+
 
 ?>

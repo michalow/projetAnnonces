@@ -1,5 +1,4 @@
 <?php
-require_once '../../models/functions.php';
 
 // L'ID est-il dans les paramètres d'URL?
 if (isset($_GET['id'])) {
@@ -44,7 +43,9 @@ if (isset($_GET['id'])) {
     $db = null;
 
     // Redirection vers la page principale des categories en passant le message et son type en variables GET
-    header('location:' . 'categories.php?type=' . $type . '&message=' . $message);
+header('location:' . 'categories.php?type=' . $type . '&message=' . $message);
 } else {
     header('location:' . 'index.php');
 }
+
+?>

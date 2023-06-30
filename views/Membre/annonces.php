@@ -6,7 +6,7 @@ if(isset($_SESSION['id'])){
 }
 
 $categories = getCategories();
-
+/* var_dump(getAnnoncesByUser(1)); */
 ?>
 <?php if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
     <div class='row'>
@@ -48,11 +48,10 @@ $categories = getCategories();
         </thead>
         <tbody>
             <?php foreach ($annoncesByUser as $annonce) : 
-                var_dump($annoncesByUser);
                 ?>
                 <tr>
                     <!-- id from DB -->
-                    <td><?= $annonce['id_annonce'] ?></td>
+                    <td><?= $annonce['id'] ?></td>
                     <td><?= htmlentities($annonce['titre'] ?? '') ?></td>
                     <td><?= htmlentities($annonce['description'] ?? '') ?></td>
                     <td><?= htmlentities($annonce['date_creation'] ?? '') ?></td>
@@ -67,9 +66,9 @@ $categories = getCategories();
                     <td><img src="<?= htmlentities($annonce['url'] ?? '') ?>" alt="" width="120" height="120"></td>
                     <td>
                     <!--   description	duree_de_publication	prix_vente	cout_annonce	date_validation	date_fin_publication	id_etat	id_utilisateur	date_vente	id_acheteur	 -->
-                    <a class='btn btn-info' href='?p=annonces_user_edit&id=<?= $annonce['id_annonce'] ?>' role='button'>Valier</a>
-                    <a class='btn btn-primary' href='?p=annonces_user_form&id=<?= $annonce['id_annonce'] ?>' role='button'>Modifier</a>
-                    <a class='btn btn-danger' href='?p=annonces_user_del&id=<?= $annonce['id_annonce'] ?>' role='button'>Supprimer</a>
+                    <!-- <a class='btn btn-info' href='?p=annonces_user_edit&id=<?= $annonce['id'] ?>' role='button'>Valier</a> -->
+                    <a class='btn btn-primary' href='index.php?p=annonces_user_form&id=<?= $annonce['id'] ?>' role='button'>Modifier</a>
+                    <a class='btn btn-danger' href='index.php?p=annonces_user_del&id=<?= $annonce['id'] ?>' role='button'>Supprimer</a>
                         
                         <!-- ???? valider message que c'était bien valider comme pour catégorie si supprimée ou pas -->
                     </td>
@@ -78,9 +77,9 @@ $categories = getCategories();
         </tbody>
     </table>
 </div>
-<!-- <div class='row'>
+<div class='row'>
     <div class='col'>
-        <a class='btn btn-success' href='annonces_form.php' role='button'>Valider annonce</a>
-        sélectionner plusieurs au même temps et valider, case à cocher -->
-    <!-- </div> -->
+        <a class='btn btn-success' href='index.php?p=annonces_user_form' role='button'>Ajouter annonce</a>
+    </div>
 </div>
+

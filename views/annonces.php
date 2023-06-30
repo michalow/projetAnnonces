@@ -1,8 +1,11 @@
 <h2>Détail d'annonce</h2>
 
 <?php
-$idAnnonce=$_GET['id'];
-$annonce=$_GET['p'];
+
+if(isset($_GET['id'])){
+    $idAnnonce=$_GET['id'];
+    $annonce=$_GET['p'];
+}
 
 /* var_dump($idAnnonce); */
 
@@ -16,4 +19,6 @@ $ann=getAnnoncesPhotos();
     <div><?= $ann[$idAnnonce]["description"];?></div>
 	<div><?= $ann[$idAnnonce]["prix_vente"];?></div>
     <div><?= $ann[$idAnnonce]["id_etat"];?></div>
-<?php 
+    
+    <button type='submit' class='btn btn-primary my-3' name='submit'>Ajouter</button>
+

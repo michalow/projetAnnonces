@@ -20,18 +20,41 @@ function getAnnoncesPhotos(){
     /*  SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, photos.url FROM annonces INNER JOIN photos ON annonces.id=photos.id_annonce WHERE annonces.date_validation IS NOT NULL ORDER BY date_validation DESC; */
     try {
      $db = connect();
-     $AnnoncesPhotosQuery = $db->query('SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, annonces.description, photos.url, annonces.id FROM annonces INNER JOIN photos ON annonces.id=photos.id_annonce WHERE annonces.date_validation IS NOT NULL ORDER BY date_validation DESC');
+     $AnnoncesPhotosQuery = $db->query('SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, annonces.description, photos.url, annonces.id FROM annonces 
+     INNER JOIN photos ON annonces.id=photos.id_annonce WHERE annonces.date_validation IS NOT NULL ORDER BY date_validation DESC');
      return $AnnoncesPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
      } catch (Exception $e) {
          echo $e->getMessage();
      }
  }
 
+function getAnnoncesByCategory($category){
+    try {
+        $db = connect();
+        $AnnoncesCategoryQuery = $db->prepare('SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, annonces.description, photos.url, annonces.id FROM annonces 
+        INNER JOIN photos ON annonces.id=photos.id_annonce 
+        INNER JOIN categories_annonces ON annonces.id=categories_annonces.id_annonce 
+        INNER JOIN categories ON categories_annonces.id_categorie=categories.id 
+        WHERE annonces.date_validation IS NOT NULL AND id_categorie=:id_categorie ORDER BY date_validation DESC');
+        $AnnoncesCategoryQuery->execute(["id_categorie" => $category]);
+        if($AnnoncesCategoryQuery->rowCount()){
+            return $AnnoncesCategoryQuery->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            echo 'Il n\'y a pas d\'annonces sous cette catégorie';
+        } 
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 function getAnnoncesByUser($id){
     try {
         $db = connect();
     
-        $annoncesQuery = $db->prepare('SELECT * FROM annonces LEFT JOIN photos ON annonces.id=photos.id_annonce LEFT JOIN etats ON annonces.id_etat=etats.id LEFT JOIN categories_annonces ON annonces.id=categories_annonces.id_annonce WHERE id_utilisateur=:id_utilisateur');
+        $annoncesQuery = $db->prepare('SELECT annonces.id, annonces.id_utilisateur, annonces.titre, annonces.description, annonces.date_creation, annonces.cout_annonce, annonces.duree_publication, annonces.prix_vente, annonces.date_validation, annonces.fin_publication, annonces.date_vente, annonces.id_etat, etats.nom, photos.url, photos.legende, categories_annonces.id_categorie FROM annonces 
+        LEFT JOIN photos ON annonces.id=photos.id_annonce 
+        LEFT JOIN etats ON annonces.id_etat=etats.id 
+        LEFT JOIN categories_annonces ON annonces.id=categories_annonces.id_annonce WHERE id_utilisateur=:id_utilisateur');
         $annoncesQuery->execute(['id_utilisateur' => $id]);
         if($annoncesQuery->rowCount()){
            return $annoncesQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -59,9 +82,39 @@ function getAnnonceByID($id){
     }    
 }
 
+function getAnnoncesByIdAnnonce($idAnnoncement){
+    try {
+        $db = connect();
+    
+        $annoncesQuery = $db->prepare('SELECT annonces.id, annonces.id_utilisateur, annonces.titre, annonces.description, annonces.date_creation, annonces.cout_annonce, annonces.duree_publication, annonces.prix_vente, annonces.date_validation, annonces.fin_publication, annonces.date_vente, annonces.id_etat, etats.nom, photos.url, photos.legende, categories_annonces.id_categorie FROM annonces 
+        LEFT JOIN photos ON annonces.id=photos.id_annonce 
+        LEFT JOIN etats ON annonces.id_etat=etats.id 
+        LEFT JOIN categories_annonces ON annonces.id=categories_annonces.id_annonce WHERE annonces.id=:id_annonce');
+        $annoncesQuery->execute(['id_annonce' => $idAnnoncement]);
+        if($annoncesQuery->rowCount()){
+           return $annoncesQuery->fetch(PDO::FETCH_ASSOC);
+        }else{
+            echo 'Cet annonce n\'existe pas';
+        }   
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }    
+}
 function getCategorieAnnonce(){
     /* $categorie=$annoncesByUser["id_categorie"]; */ 
 }
 
-
+function NbrChars($texte){
+    $max=250;
+    $nbrtexte=strlen($texte);
+    $cout=0.001;
+    if($nbrtexte > $max){
+        echo 'Vous avez dépassé '.$max.' caractères. Le coût de votre descritption : '. ($nbrtexte - $max)*$cout .' €';
+    }else{
+        echo 'Il vous reste : '.$max - $nbrtexte;
+    }
+}
+function NbrPhotos($file){
+    
+}
 ?>

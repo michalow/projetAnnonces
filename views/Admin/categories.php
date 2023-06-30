@@ -1,10 +1,5 @@
 <?php
 
-/* require_once "../../models/functions.php";
-require_once "../../models/functions2.php";
-include_once '../common/header.php';
-include_once '../common/admin_nav.php'; */
-
 try {
  $categories=getCategories();
 } catch (Exception $e) {
@@ -36,8 +31,8 @@ try {
                     <td><?= htmlentities($cat['nom_categorie']) ?></td>
                     <td><?= htmlentities($cat['description']) ?></td>
                     <td>
-                        <a class='btn btn-primary' href='categorie_form.php?id=<?= $cat['id'] ?>' role='button'>Modifier</a>
-                        <a class='btn btn-danger' href='categorie_delete.php?id=<?= $cat['id'] ?>' role='button'>Supprimer</a>
+                        <a class='btn btn-primary' href='categorie_form.php&id=<?= $cat['id'] ?>' role='button'>Modifier</a>
+                        <a class='btn btn-danger' href='index.php?p=categorie_del&id=<?= $cat['id'] ?>' role='button'>Supprimer</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -46,8 +41,7 @@ try {
 </div>
 <div class='row'>
     <div class='col'>
-        <a class='btn btn-success' href='categorie_form.php' role='button'>Ajouter catégorie</a>
+        <a class='btn btn-success' href='index.php?p=categorie_form' role='button'>Ajouter catégorie</a>
     </div>
 </div>
 
-<!-- <?php include_once '../common/footer.php' ?> -->

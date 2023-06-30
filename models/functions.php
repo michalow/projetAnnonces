@@ -156,8 +156,9 @@ function addPhotos($id) {
     }
     return $cpt;
 }
-/* // ADMIN
-function getAdmin(){
+
+// ADMIN
+/* function getAdmin(){
     try {
         $db = connect();
         $query=$db->query('SELECT * FROM membres WHERE is_admin=1');
@@ -167,7 +168,7 @@ function getAdmin(){
     } catch (Exception $e) {
         echo $e->getMessage();
     }
-  }  */
+} */
 
 //RECUPERATION DE BDD PAR SON EMAIL CETTE FONCTION EST UTILISEE DANS LOGUSER
 function getUserByEmail($email) {
@@ -202,8 +203,10 @@ function getUserByToken($token) {
 function getAdmin($isAdmin){
     try {
         $db = connect();
-        $query=$db->prepare('SELECT * FROM membres WHERE is_admin= :isadmin=true');
-        $query->execute(['isadmin'=>$isAdmin]);
+        $query=$db->prepare('SELECT * FROM membres WHERE is_admin= :isadmin');
+        $query->bindParam(":isadmin", $isAdmin);
+        $isAdmin = 1;
+        $query->execute();
         if ($query->rowCount()){
             return $query->fetch();
         }
@@ -211,20 +214,26 @@ function getAdmin($isAdmin){
         echo $e->getMessage();
     } 
     return false;
-  }     
+  }  
 
 //LOGGER USER
 function logUser() {
   $email=filter_var(filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL), FILTER_VALIDATE_EMAIL);
   $user=getUserByEmail($email); //fonction pour récuperer user par son email
+ /*  $admin=getAdmin($isAdmin); */
   if($user){
       if(password_verify($_POST['password'], $user['password'])){ //comparaire mdp envoyé avec mdp dans la BDD
           if($user['actif']){
               $_SESSION['is_login']=true; //test connexion
               $_SESSION['is_actif']=$user['actif']; //1 ou 0
               $_SESSION['id']=$user['id'];
-              header("Location: ?p=espace");
-              return array("success", "Connexion réussie. Bonjour ".$user['nom']);               
+              $_SESSION['is_admin']=$user['is_admin'];
+                if($user['is_admin']===1){
+                    header("Location: ?p=admin");
+                }else{ 
+                    header("Location: ?p=espace");
+               }
+                return array("success", "Connexion réussie. Bonjour ".$user['nom']);               
           }else return array("error", "Veuillez activer votre compte");
       }else return array("error", "Mauvais identifiants");
   }else return array("error", "Mauvais identifiants"); //ne repond pas que c'est le mdp (sécurité)
@@ -234,27 +243,27 @@ function logUser() {
 //AJOUTER UN USER
 function addUser() {
   $email=filter_var(filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL), FILTER_VALIDATE_EMAIL);
-  if(!getUserByEmail($email)){ // Récupération d'un utilisateur à partir de son email //si l'email n'est pas dans la BDD
-      if ($_POST['password']===$_POST['password_conf']){ //confirmation de mail vérifier si 2 mdp sont OK
+  if(!getUserByEmail($email)){ 
+      if ($_POST['password']===$_POST['password_conf']){ 
           if(preg_match("/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}$/", $_POST['password'])){ 
-              $pwd=password_hash($_POST['password'], PASSWORD_DEFAULT); // haché le mdp avec la fonction password_hach
-              $nom=htmlspecialchars($_POST['nom']);
-              $prenom=htmlspecialchars($_POST['prenom']); 
-              $username=htmlspecialchars($_POST['username']);
-              $token=bin2hex(random_bytes(16)); // 16 catactères au hasard avec fonction bin to heximal passer en parametre de l'URL
-              $email=htmlspecialchars($_POST['email']);
+            $pwd=password_hash($_POST['password'], PASSWORD_DEFAULT); 
+            $nom=htmlspecialchars($_POST['nom']);
+            $prenom=htmlspecialchars($_POST['prenom']); 
+            $username=htmlspecialchars($_POST['username']);
+            $token=bin2hex(random_bytes(16)); 
+            $email=htmlspecialchars($_POST['email']);
             $naissance=htmlspecialchars($_POST['naissance']);
             $tel=htmlspecialchars($_POST['telephone']);
             $adresse=htmlspecialchars($_POST['adresse']);
             $cp=htmlspecialchars($_POST['cp']);
             $ville=htmlspecialchars($_POST['city']);
               try {
-                  $db = connect(); 
-                  $query=$db->prepare('INSERT INTO membres (username, nom, prenom, email, password, token, date_naissance, telephone, adresse, code_postal, ville) VALUES (:username, :nom, :prenom, :email, :pwd, :token, :naissance, :telephone, :adresse, :cp, :ville)'); //requette d'insértion dans le bon ordre email VALUES :email (playholder par exemple en mysql "?" )
-                  $query->execute(['username'=>$username, 'nom'=>$nom, 'prenom'=>$prenom, 'email'=> $email,  'pwd'=> $pwd, 'token'=> $token, 'naissance'=> $naissance, 'telephone'=>$tel, 'adresse'=>$adresse, 'cp'=>$cp, 'ville'=>$ville]); //enregistrement dans la BDD
-                  if ($query->rowCount()){ //combien de lignes impactées, vérifier si c'était bien enregistrer
+                $db = connect(); 
+                $query=$db->prepare('INSERT INTO membres (username, nom, prenom, email, password, token, date_naissance, telephone, adresse, code_postal, ville) VALUES (:username, :nom, :prenom, :email, :pwd, :token, :naissance, :telephone, :adresse, :cp, :ville)');
+                $query->execute(['username'=>$username, 'nom'=>$nom, 'prenom'=>$prenom, 'email'=> $email,  'pwd'=> $pwd, 'token'=> $token, 'naissance'=> $naissance, 'telephone'=>$tel, 'adresse'=>$adresse, 'cp'=>$cp, 'ville'=>$ville]); 
+                  if ($query->rowCount()){ 
                     addAvatar($db->lastInsertId());
-                      $content="<p><a href='0906/index.php?p=activation&t=$token'>Merci de cliquer sur ce lien pour activer votre compte</a></p>"; //changer URL (comme index.php) qui contient la page et token //CONTENU du MAIL p=activation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                      $content="<p><a href='projetAnnonces/index.php?p=activation&t=$token'>Merci de cliquer sur ce lien pour activer votre compte</a></p>"; //changer URL (comme index.php) qui contient la page et token //CONTENU du MAIL p=activation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                       // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
                       $headers = array(
                           'MIME-Version' => '1.0',
@@ -303,11 +312,6 @@ function waitReset() {
         var_dump($perimAdd);
         $perimAdd=date('Y-m-d H:i:s');
         var_dump($perimAdd);
-        /* $perimSec=$perim/1000;
-        var_dump($perim);
-        var_dump($perimSec);
-        $perimSec=date('Y-m-d H:i:s');
-        var_dump($perimSec); */
         try {
             $db = connect();
             $query=$db->prepare('UPDATE membres SET 

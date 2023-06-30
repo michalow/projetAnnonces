@@ -16,10 +16,10 @@ if (!empty($_POST)) {
         
             if ($createCatStmt->rowCount()) {
                 $type = 'success';
-                $message = 'Catégorie ajoutée';
+                $message = ['Catégorie ajoutée'];
             } else {
                 $type = 'error';
-                $message = 'Catégorie non ajoutée';
+                $message = ['Catégorie non ajoutée'];
             }
         } catch (Exception $e) {
             $type = 'error';
@@ -35,14 +35,14 @@ if (!empty($_POST)) {
        
             if($updateCatStmt->rowCount()) {
                 $type = 'success';
-                $message = 'Catégorie mis à jour';
+                $message = ['Catégorie mis à jour'];
             }else{
                 $type = 'error';
-                $message = 'Catégorie non mis à jour';
+                $message = ['Catégorie non mis à jour'];
             }
         } catch (Exception $e) {
             $type = 'error';
-            $message = 'Catégorie non mis à jour: ' . $e->getMessage();
+            $message = ['Catégorie non mis à jour: ' . $e->getMessage()];
         }
     }
 
@@ -50,5 +50,7 @@ if (!empty($_POST)) {
     $updateCatStmt = null;
     $db = null;
 
-    header('location:' . 'categories.php?type=' . $type . '&message=' . $message);
+   /*  header('location:' . 'categories.php?type=' . $type . '&message=' . $message); */
 }
+
+?>

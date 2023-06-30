@@ -29,12 +29,16 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){ // LOGGER ACTION
 			//traitement
 			include 'views/Membre/compte_edit.php';
 			$p="compte_form";
-			//header('location:' . $p .'?type=' . $type . '&message=' . $message);
+			/* header('location:' . $p .'?type=' . $type . '&message=' . $message); */
 			break;
 		case 'annonce_edit':
 			include 'views/Membre/annonce_edit.php';
 			$p="annonces_user_form";
 			break;
+		case 'categorie_edit';
+			include 'views/Admin/categorie_edit.php';
+			$p="categorie_form";
+			break;	
 		case 'contact':
 			$message=contactEmail();
 			$p="contact";
@@ -47,12 +51,12 @@ if ($p=='activation') //si page activation $p //activation par mail LIEN D ACTIV
 	$message=activUser(); //message fonction ADDUSER
 if ($p=='deconnect'){ //HOME.PHP <a class="button" href="?p=deconnect">Se déconnecter</a>
 	session_unset(); //plus connecter FONCTION LOGUSER
-	session_destroy(); // 2 unset et destroy parce que certains navoigaeur ne support pas une
-	$message=array("success", "Vous êtes déconnecté"); //MESSAGE SUCCESS
+	session_destroy(); // 2 unset et destroy parce que certains navigateur ne support pas une
+	$message=array("success", "Vous êtes déconnecté"); 
 }
-if ($p=='reset' && !isset($_GET['t'])){ //si p est reset RESET.PHP value="reset"
-	$message=array("error", "Lien invalide. Veuillez réessayer"); //MESSAGE ERROR
-	$p="forgot"; //MDP oublié
+if ($p=='reset' && !isset($_GET['t'])){ 
+	$message=array("error", "Lien invalide. Veuillez réessayer"); 
+	$p="forgot"; 
 }
 
 $logged = $_SESSION['is_login'] ?? false;
@@ -68,7 +72,7 @@ switch ($p) {
 		$token=htmlspecialchars($_GET['t']); //$TOKEN $_GET['t']
 		include "views/reset.php";	
 		break;	
-	case 'signup': //champ caché hidden value signup dans fichier signup.php
+	case 'signup': 
 		include "views/signup.php";	
 		break;
 	case 'annonces':
@@ -84,6 +88,13 @@ switch ($p) {
 			echo "Cet article n'existe pas";
 		} 		
 		break;	
+	case 'femme':
+		include "views/Annonces/femme.php";
+		break;
+	case 'homme':
+		include "views/Annonces/homme.php";
+		break;		
+		//MEMBRE
     case 'espace':
 		include "views/Membre/espace.php";	
 		break;
@@ -105,18 +116,28 @@ switch ($p) {
     case 'contact':
         include "views/contact.php";	
         break; 
+		//ADMIN
 	case 'admin':
 		include "views/Admin/admin.php";	
 		break;
+	case 'annonces_admin':
+		include "views/Admin/annonces.php";	
+		break;	
 	case 'categories':
 		include "views/Admin/categories.php";	
 		break;
 	case 'categorie_form':
 		include "views/Admin/categorie_form.php";	
-		break;	
+		break;
+	case 'categorie_del':
+		include "views/Admin/categorie_delete.php";	
+		break;
+	/* case 'categorie_val':
+		include "views/Admin/categorie_delete.php";	
+		break; */			
 	case 'etats':
 		include "views/Admin/etats.php";	
-		break;			
+		break;					
 	default:
 		include "views/home.php";	//si $p vide c'est une page HOME ; $p = $_GET['p'] ?? ""; sinon "" vide
 } 

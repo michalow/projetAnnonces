@@ -1,15 +1,6 @@
 /* HOME PAGE AVEC PHOTO MINIATURE */
 body { margin: 0; padding: 0; border: 0; }
 section { min-height: 100vh; }
-/* il faut un peu modifier les sélecteurs suivants avec la div à ajouter */
-section > div { background-color: white; }
-section > div:nth-of-type(5n+1) > div { background-color: #1abc9c; }
-section > div:nth-of-type(5n+2) > div { background-color: #3498db; }
-section > div:nth-of-type(5n+3) > div { background-color: #9b59b6; }
-section > div:nth-of-type(5n+4) > div { background-color: #e67e22; }
-section > div:nth-of-type(5n) > div { background-color: #e74c3c; }
-span { background-color: rgba(255, 255, 255, .5); border-radius: 50%; display: block; font-size: 48px; height: auto; line-height: 3em; text-align: center; width: 3em; }
-
 
  section {
   display: flex;
@@ -18,12 +9,12 @@ span { background-color: rgba(255, 255, 255, .5); border-radius: 50%; display: b
   margin-right: 5%;
  }
 
- section > div { /* on prend les div qui sont directement dans la section */
+ .thumbnail { /* on prend les div qui sont directement dans la section */
   display: flex;
   width : 20% ; /* 4 éléments par ligne */
  }
 
- section > div > div { /* on prend les div dans les div */
+ .thumbnail2 { /* on prend les div dans les div */
   width: 90%; /* l'élément prend toute sa largeur disponible */
   margin : 20px; /* on met une marge */
   display: flex;

@@ -32,12 +32,12 @@ $categories = getCategories();
 
 
 <div class='row'>
-
     <h1 class='col-md-12 text-center border border-dark bg-primary text-white'>Catégorie Formulaire</h1>
 </div>
 <div class='row'>
-    <form method='post' action='categorie_edit.php'>
+    <form method='post' action=''>
         <!--  Ajouter un champs cacher avec l'ID (s'il existe) pour qu'il soit envoyé avec le formulaire -->
+        <input type='hidden' name='action' value='categorie_edit'>
         <input type='hidden' name='id' value='<?= $categorie['id'] ?? '' ?>'>
         <div class='form-group my-3'>
             <label for='nom'>Nom</label>
@@ -48,6 +48,7 @@ $categories = getCategories();
             <input type='text' name='description' class='form-control' id='description' placeholder='Enter description' value='<?= isset($categorie['description']) ? htmlentities($categorie['description'])  : '' ?>'>
         </div>
         <button type='submit' class='btn btn-primary my-3' name='submit'>Envoyer</button>
+        
     </form>
 </div>
 

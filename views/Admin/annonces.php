@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../models/functions.php';
+/* require_once '../../models/functions.php';
 require_once '../../models/functions2.php';
 include_once '../common/header.php';
-include_once '../common/admin_nav.php';
+include_once '../common/admin_nav.php'; */
 
 try {
     $db = connect();
@@ -63,9 +63,9 @@ try {
                     <td><?= htmlentities($annonce['id_utilisateur'] ?? '') ?></td>
                     <td>
                     <!--   description	duree_de_publication	prix_vente	cout_annonce	date_validation	date_fin_publication	id_etat	id_utilisateur	date_vente	id_acheteur	 -->
-                    <a class='btn btn-info' href='annonces_valide.php?id=<?= $annonce['id'] ?>' role='button'>Valider</a>
-                    <a class='btn btn-primary' href='annonces_form.php?id=<?= $annonce['id'] ?>' role='button'>Modifier</a>
-                    <a class='btn btn-danger' href='annonces_delete.php?id=<?= $annonce['id'] ?>' role='button'>Supprimer</a>
+                    <a class='btn btn-info' href='index.php?p=annonces_val?id=<?= $annonce['id'] ?>' role='button'>Valider</a>
+                    <a class='btn btn-primary' href='index.php?p=annonces_form?id=<?= $annonce['id'] ?>' role='button'>Modifier</a>
+                    <a class='btn btn-danger' href='index.php?p=annonces_del?id=<?= $annonce['id'] ?>' role='button'>Supprimer</a>
                         
                         <!-- ???? valider message que c'était bien valider comme pour catégorie si supprimée ou pas -->
                     </td>
@@ -76,9 +76,9 @@ try {
 </div>
 <div class='row'>
     <div class='col'>
-        <a class='btn btn-success' href='annonces_form.php' role='button'>Valider annonce</a>
+        <a class='btn btn-success' href='index.php?p=annonces_form' role='button'>Valider annonce</a>
         <!-- sélectionner plusieurs au même temps et valider, case à cocher -->
     </div>
 </div>
 
-<?php include_once '../common/footer.php' ?>
+<!-- <?php include_once '../common/footer.php' ?> -->

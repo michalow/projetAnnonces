@@ -1,15 +1,20 @@
 <?php
 
 /* require_once '../../models/functions.php'; */
-var_dump($_POST);
+/* var_dump($_POST); */
 if (isset($_POST)) {
     $id = $_POST['id'];
+    $user = $_SESSION['id'];
     $titreAnnonce = $_POST['titre'] ?? '';
     $descriptionAnnonce = $_POST['description'] ?? '';
-    $prixAnnonce = $_POST['prix'];
+    $prixAnnonce = $_POST['prix'] ?? '';
+    $photoAnnonce = $_POST['photo'] ?? '';
+    $id_categorie = $_POST['id_categorie']  ?? '';
+    $id_categorie = filter_input(INPUT_POST, 'id_categorie', FILTER_SANITIZE_NUMBER_INT);
+    $etat = $_POST['id_etat']  ?? '';
     $etat = filter_input(INPUT_POST, 'id_etat', FILTER_SANITIZE_NUMBER_INT);
     /* $id_categorie = filter_input(INPUT_POST, 'id_categorie', FILTER_SANITIZE_NUMBER_INT); */
-
+    
     $db = connect();
 
     if (empty($_POST['id'])) {
@@ -17,14 +22,23 @@ if (isset($_POST)) {
             $createAnnStmt = $db->prepare('INSERT INTO annonces (
                 titre, 
                 description,
-                prix_vente, 
-                id_etat) VALUES (
+                prix_vente,
+                id_etat,
+                id_utilisateur) VALUES (
                     :titre, 
                     :description, 
                     :prix, 
-                    :etat)');
+                    :etat,
+                    :user)');
             $createAnnStmt->execute(['titre'=>$titreAnnonce, 'description'=>$descriptionAnnonce, 'prix'=>$prixAnnonce,
-            'etat'=>$etat]);
+            'etat'=>$etat,
+            'user'=>$user]);
+        $LastId = $db->lastInsertId();
+        var_dump($LastId);
+        if(isset($LastId)){
+            $createCatStmt = $db->prepare('INSERT INTO categories_annonces (id_annonce, id_categorie) VALUES (:id_annonce, :id_categorie)');
+            $createCatStmt->execute(['id_annonce'=>$LastId, 'id_categorie'=>$id_categorie]);
+        }
             /* $createPhStmt = $db->prepare('INSERT INTO photos (url, legende, main, id_annonce) VALUES (:url, :legende, :main, :id_annonce)');
             $createPhStmt->execute(['url'=>$url, 'legende'=>$legende, 'main'=>$main, 'id_annonce'=>$idAnnonce]);
             //$idAnnonce=$_POST['id'];
@@ -32,10 +46,10 @@ if (isset($_POST)) {
             $createCatStmt->execute(['id_annonce'=>$id_annonce, 'id_categorie'=>$id_categorie]); */
             if ($createAnnStmt->rowCount()) {
                 $type = 'success';
-                $message = ['Veuillez patienter. Votre annonce est en attente de publication'];
+                $message = ['success', 'Veuillez patienter. Votre annonce est en attente de publication'];
             } else {
                 $type = 'error';
-                $message = ['Veuillez réessayé. Votre annonce n\'a pas été ajoutée'];
+                $message = ['danger', 'Veuillez réessayé. Votre annonce n\'a pas été ajoutée'];
             }
         } catch (Exception $e) {
             $type = 'error';
@@ -61,14 +75,14 @@ if (isset($_POST)) {
        
             if($updateAnnStmt->rowCount()) {
                 $type = 'success';
-                $message = 'Annonce a été modifiée';
+                $message = ['success', 'Annonce a été modifiée'];
             }else{
                 $type = 'error';
-                $message = 'Annonce n\'a pas été modifiée. Veuillez réessayer';
+                $message = ['danger', 'Annonce n\'a pas été modifiée. Veuillez réessayer'];
             }
         } catch (Exception $e) {
             $type = 'error';
-            $message = 'Annonce n\'a pas été modifiée: ' . $e->getMessage();
+            $message = ['danger', 'Annonce n\'a pas été modifiée: '.  $e->getMessage()] ;
         }
     }
 
@@ -76,5 +90,5 @@ if (isset($_POST)) {
     $updateAnnStmt = null;
     $db = null;
 
-   header('location:' . 'annonces.php?type=' . $type . '&message=' . $message);
+ /*   header('location:' . 'annonce_edit.php?type=' . $type . '&message=' . $message); */
 }

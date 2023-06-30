@@ -19,7 +19,7 @@
         <label for="email">Votre Email</label>
         <input type="email" name="email">
         <input type="submit" value="Réinitialiser mon mot de passe !">
-        <a href="?p=signup">La mémoire m'est revenue</a>     
+        <a href="index.php?p=signup">La mémoire m'est revenue</a>     
     </form>
     </div>
 </div>
