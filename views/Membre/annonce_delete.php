@@ -1,5 +1,4 @@
 <?php
-/* require_once 'functions.php'; */
 var_dump($_GET['id']);
 // L'ID est-il dans les paramètres d'URL?
 if (isset($_GET['id'])) {
@@ -13,10 +12,10 @@ if (isset($_GET['id'])) {
     
         if ($deleteAnnStmt->rowCount()) {
             $type = 'success';
-            $message = ['success', 'Annonce a été supprimée'];
+            $message = 'Annonce a été supprimée';
         } else {
             $type = 'error';
-            $message = ['danger', 'Annonce n\'a pas été supprimée'];
+            $message = 'Annonce n\'a pas été supprimée';
         }
 
     } catch (Exception $e) {
@@ -27,10 +26,13 @@ if (isset($_GET['id'])) {
     $db = null;
 
     // Redirection vers la page principale des membres en passant le message et son type en variables GET
-    /* header('location:' . 'annonces.php?type=' . $type . '&message=' . $message); //renvoie sur members qui affiche un message
+    echo 'OK';
+    var_dump($message);
+/*     header('location:' . 'annonces_user?type=' . $type . '&message=' . $message);  *///renvoie sur members qui affiche un message
 } else {
     //Redirection vers l'Accueil s'il n'y a pas d'ID membre 
-    header('location:'. 'index.php'); */
+    /* header('location:'. 'index.php'); */
+    echo 'pop';
 }
 
 ?>

@@ -1,15 +1,11 @@
 <?php
-/* require_once '../../models/functions.php' */;
 
-// L'ID est-il dans les paramètres d'URL?
 if (isset($_GET['id'])) {
-
-    // Récupérer $id depuis l'URL
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     try {
         $db = connect();
-        // Avant de supprimer une categorie, on vérifie qu'aucune annonce l'utilise
+    
         $announcementsQuery = $db->prepare('UPDATE annonces SET date_validation=CURRENT_TIMESTAMP WHERE id =:id');
         
         $announcementsQuery->execute(['id' => $id]);
@@ -33,7 +29,7 @@ if (isset($_GET['id'])) {
     $db = null;
 
     // Redirection vers la page principale des categories en passant le message et son type en variables GET
-/*     header('location:' . 'annonces.php?type=' . $type . '&message=' . $message);
-} else {
-    header('location:' . 'index.php'); */
-}
+header('location:' . 'annonces.php?type=' . $type . '&message=' . $message);
+} /* else {
+    header('location:' . 'index.php');
+} */

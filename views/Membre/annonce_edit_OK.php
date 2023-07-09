@@ -1,64 +1,24 @@
 <?php
 
+/* require_once '../../models/functions.php'; */
 /* var_dump($_POST); */
 if (isset($_POST)) {
-    $id = $_POST['id']; //id annonce 
+    $id = $_POST['id'];
     $user = $_SESSION['id'];
-    $titre = $_POST['titre'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $prix = $_POST['prix'] ?? '';
+    $titreAnnonce = $_POST['titre'] ?? '';
+    $descriptionAnnonce = $_POST['description'] ?? '';
+    $prixAnnonce = $_POST['prix'] ?? '';
     $photoAnnonce = $_POST['photo'] ?? '';
     $id_categorie = $_POST['id_categorie']  ?? '';
-    $url = $_POST['url'] ?? '';
-    $legende = $_POST['legende'] ?? '';
-   /*  $id_categorie = filter_input(INPUT_POST, 'id_categorie', FILTER_SANITIZE_NUMBER_INT); */
+    $id_categorie = filter_input(INPUT_POST, 'id_categorie', FILTER_SANITIZE_NUMBER_INT);
     $etat = $_POST['id_etat']  ?? '';
-   /*  $etat = filter_input(INPUT_POST, 'id_etat', FILTER_SANITIZE_NUMBER_INT); */
+    $etat = filter_input(INPUT_POST, 'id_etat', FILTER_SANITIZE_NUMBER_INT);
     /* $id_categorie = filter_input(INPUT_POST, 'id_categorie', FILTER_SANITIZE_NUMBER_INT); */
     
     var_dump($photoAnnonce);
     $db = connect();
 
-    if (!empty($_POST['id'])) {
-        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-        try {
-            $updateAnnStmt = $db->prepare('UPDATE annonces SET 
-            titre=:titre, 
-            description=:description, 
-            prix_vente=:prix,
-            id_etat=:etat 
-            WHERE id=:id');
-           $updateAnnStmt->execute([
-            'titre'=>$titre, 
-            'description'=>$description, 
-            'prix'=>$prix, 
-            'etat'=>$etat, 
-            'id'=>$id]);
-//Categorie
-            $updateCatStmt = $db->prepare('UPDATE categories_annonces SET /* id_annonce=:id_annonce, */
-            id_categorie=:id_categorie 
-            WHERE id_annonce=:id_annonce');
-            $updateCatStmt->execute(['id_categorie'=>$id_categorie, 'id_annonce'=>$id]);
-       
-//Photo 
-            $updatePhotoStmt = $db->prepare('UPDATE photos SET url=:url, legende=:legende WHERE id_annonce=:id_annonce');
-            $updatePhotoStmt->execute(['url'=>$url, 'legende'=>$legende, 'id_annonce'=>$id]);
-
-            if($updateAnnStmt->rowCount() || $updateCatStmt->rowCount() || $updatePhotoStmt->rowCount()) {
-                $type = 'success';
-                $message = ['success', 'Annonce a été modifiée'];
-            }else{
-                $type = 'error';
-                $message = ['danger', 'Annonce n\'a pas été modifiée. Veuillez réessayer'];
-            }
-        } catch (Exception $e) {
-            $type = 'error';
-            $message = ['danger', 'Annonce n\'a pas été modifiée: '.  $e->getMessage()] ;
-        }
-        
-//categorie existe en BDD, on le met à jour
-    } else {
+    if (empty($_POST['id'])) {
         try {
             $createAnnStmt = $db->prepare('INSERT INTO annonces (
                 titre, 
@@ -71,7 +31,7 @@ if (isset($_POST)) {
                     :prix, 
                     :etat,
                     :user)');
-            $createAnnStmt->execute(['titre'=>$titre, 'description'=>$description, 'prix'=>$prix,
+            $createAnnStmt->execute(['titre'=>$titreAnnonce, 'description'=>$descriptionAnnonce, 'prix'=>$prixAnnonce,
             'etat'=>$etat,
             'user'=>$user]);
         $LastId = $db->lastInsertId();
@@ -95,6 +55,35 @@ if (isset($_POST)) {
         } catch (Exception $e) {
             $type = 'error';
             $message = ['Exception message: ' . $e->getMessage()];
+        }
+//categorie existe en BDD, on le met à jour
+    } else {
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+        try {
+            $updateAnnStmt = $db->prepare('UPDATE annonces SET 
+            titre=:titre, 
+            description=:description, 
+            prix_vente=:prix,
+            id_etat=:etat 
+            WHERE id=:id');
+           $updateAnnStmt->execute([
+            'titre'=>$titre, 
+            'description'=>$decription, 
+            'prix'=>$prix, 
+            'etat'=>$etat, 
+            'id'=>$id]);
+       
+            if($updateAnnStmt->rowCount()) {
+                $type = 'success';
+                $message = ['success', 'Annonce a été modifiée'];
+            }else{
+                $type = 'error';
+                $message = ['danger', 'Annonce n\'a pas été modifiée. Veuillez réessayer'];
+            }
+        } catch (Exception $e) {
+            $type = 'error';
+            $message = ['danger', 'Annonce n\'a pas été modifiée: '.  $e->getMessage()] ;
         }
     }
 

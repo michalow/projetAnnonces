@@ -3,7 +3,9 @@ session_start();
 require_once __DIR__.'/models/functions.php';
 require_once __DIR__.'/models/functions2.php';
 
-
+/* if(isset($_GET['p'])) { */
+	/* $p = $_GET['p']; */
+/* }  */
 $p = $_GET['p'] ?? "";
 
 
@@ -15,7 +17,15 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){ // LOGGER ACTION
 			break;
 		case 'login': 
 			$message=logUser(); 
-			$p="home"; 
+			if(isset($_SESSION)){
+				if($_SESSION['is_admin']==0){
+					$p="espace";
+				} else {
+					$p="admin";
+				}
+			} else {
+				$p="home";
+			} 
 			break;
 		case 'forgot': 
             $message=waitReset();
@@ -48,9 +58,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){ // LOGGER ACTION
 
 // ETAT CONNECTE ET DECONNECTE ET MDP OUBLIE OU REINITIALISE GESTION DE SESSIONS
 if ($p=='activation') //si page activation $p //activation par mail LIEN D ACTIVATION AVEC TOKEN
-	$message=activUser(); //message fonction ADDUSER
-if ($p=='deconnect'){ //HOME.PHP <a class="button" href="?p=deconnect">Se déconnecter</a>
-	session_unset(); //plus connecter FONCTION LOGUSER
+	$message=activUser(); 
+if ($p=='deconnect'){ 
+	session_unset(); 
 	session_destroy(); // 2 unset et destroy parce que certains navigateur ne support pas une
 	$message=array("success", "Vous êtes déconnecté"); 
 }
@@ -94,9 +104,10 @@ switch ($p) {
 	case 'homme':
 		include "views/Annonces/homme.php";
 		break;		
-		//MEMBRE
+		
+//MEMBRE
     case 'espace':
-		include "views/Membre/espace.php";	
+		include "views/Membre/espace.php";
 		break;
     case 'annonces_user': 
         include "views/Membre/annonces.php";	
@@ -116,13 +127,19 @@ switch ($p) {
     case 'contact':
         include "views/contact.php";	
         break; 
-		//ADMIN
+//ADMIN
 	case 'admin':
 		include "views/Admin/admin.php";	
 		break;
 	case 'annonces_admin':
 		include "views/Admin/annonces.php";	
 		break;	
+	case 'annonces_val':
+		include "views/Admin/annonce_valide.php";	
+		break;
+	case 'annonces_form':
+		include "views/Admin/annonces_form.php";	
+		break;		
 	case 'categories':
 		include "views/Admin/categories.php";	
 		break;
@@ -131,10 +148,7 @@ switch ($p) {
 		break;
 	case 'categorie_del':
 		include "views/Admin/categorie_delete.php";	
-		break;
-	/* case 'categorie_val':
-		include "views/Admin/categorie_delete.php";	
-		break; */			
+		break;			
 	case 'etats':
 		include "views/Admin/etats.php";	
 		break;					

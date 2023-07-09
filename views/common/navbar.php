@@ -68,42 +68,47 @@ if(isset($keyword) && !empty(trim($keyword))){
     </form>
 
 <!-- CONNEXION ESPACE MEMBRE ET ADMIN -->
-<?php if(!$logged) { ?>
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item active">
-      <a class="nav-link" href="index.php?p=signup">
-        <span class="sr-only">Créer un compte</span>
-      </a>
-    </li>
-    <li class="nav-item active">
-      <a class="nav-link" href="index.php?p=signup">
-        <span class="sr-only">Se connecter</span></a>
-    </li>
-  </ul>
-<?php } else {   
-            if($_SESSION['is_admin']==1){        
+<?php if($logged){
+        if($_SESSION['is_admin']==1){        
 ?>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.php?p=admin">
-            <span class="sr-only">Admin</span>
-          </a>
-        </li>
-      </ul>  
-<?php       } else {      ?>  
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.php?p=espace">
-            <span class="sr-only">Espace Membre</span>
-          </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="index.php?p=deconnect">
-            <span class="sr-only">Se déconnecter</span>
-          </a>
-        </li>
-      </ul>  
-<?php }} ?>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php?p=admin">
+                <span class="sr-only">Admin</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php?p=deconnect">
+                <span class="sr-only">Se déconnecter</span>
+              </a>
+            </li>
+          </ul>  
+<?php     } else {   ?>  
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.php?p=espace">
+                  <span class="sr-only">Espace Membre</span>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="index.php?p=deconnect">
+                  <span class="sr-only">Se déconnecter</span>
+                </a>
+              </li>
+            </ul>  
+<?php }} else { ?>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php?p=signup">
+                <span class="sr-only">Créer un compte</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php?p=signup">
+                <span class="sr-only">Se connecter</span></a>
+            </li>
+          </ul>     
+<?php } ?>
 
 <!-- RESUTAT DE RECHERCHE --> 
   <?php if($afficher==true) : ?>

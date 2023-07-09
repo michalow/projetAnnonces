@@ -27,11 +27,10 @@ try {
 ?>
 
 <div class='row'>
-<h1 class='col-md-12 text-center border border-dark text-white bg-primary'>Annonces</h1>
+    <h1 class='col-md-12 text-center border border-dark text-white bg-primary'>Annonces</h1>
     <table class='table table-striped'>
         <thead>
             <tr>
-                <!-- titres colonnes -->
                 <th scope='col'>#</th>
                 <th scope='col'>Titre</th>
                 <th scope='col'>Description</th>
@@ -62,10 +61,15 @@ try {
                     <td><?= htmlentities($annonce['date_vente'] ?? '') ?></td>
                     <td><?= htmlentities($annonce['id_utilisateur'] ?? '') ?></td>
                     <td>
-                    <!--   description	duree_de_publication	prix_vente	cout_annonce	date_validation	date_fin_publication	id_etat	id_utilisateur	date_vente	id_acheteur	 -->
-                    <a class='btn btn-info' href='index.php?p=annonces_val?id=<?= $annonce['id'] ?>' role='button'>Valider</a>
-                    <a class='btn btn-primary' href='index.php?p=annonces_form?id=<?= $annonce['id'] ?>' role='button'>Modifier</a>
-                    <a class='btn btn-danger' href='index.php?p=annonces_del?id=<?= $annonce['id'] ?>' role='button'>Supprimer</a>
+                        <a class='btn btn-info' href='index.php?p=annonces_val?id=<?= $annonce['id'] ?>' role='button'>
+                            Valider
+                        </a>
+                        <a class='btn btn-primary' href='index.php?p=annonces_form?id=<?= $annonce['id'] ?>' role='button'>
+                            Modifier
+                        </a>
+                        <a class='btn btn-danger' href='index.php?p=annonces_del?id=<?= $annonce['id'] ?>' role='button'>
+                            Supprimer
+                        </a>
                         
                         <!-- ???? valider message que c'était bien valider comme pour catégorie si supprimée ou pas -->
                     </td>
@@ -74,11 +78,9 @@ try {
         </tbody>
     </table>
 </div>
-<div class='row'>
+<!-- <div class='row'>
     <div class='col'>
         <a class='btn btn-success' href='index.php?p=annonces_form' role='button'>Valider annonce</a>
-        <!-- sélectionner plusieurs au même temps et valider, case à cocher -->
     </div>
-</div>
+</div> -->
 
-<!-- <?php include_once '../common/footer.php' ?> -->

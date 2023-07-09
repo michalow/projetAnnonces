@@ -1,6 +1,9 @@
 <?php 
 
-require_once 'models/functions.php';
+if (empty($_SESSION)) {
+	header ('Location: index.php?p=home');
+	exit();
+}
 
 if(isset($_SESSION['id']) && getAvatar($_SESSION['id'])){
     $src=getAvatar($_SESSION['id']);

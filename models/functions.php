@@ -228,11 +228,6 @@ function logUser() {
               $_SESSION['is_actif']=$user['actif']; //1 ou 0
               $_SESSION['id']=$user['id'];
               $_SESSION['is_admin']=$user['is_admin'];
-                if($user['is_admin']===1){
-                    header("Location: ?p=admin");
-                }else{ 
-                    header("Location: ?p=espace");
-               }
                 return array("success", "Connexion réussie. Bonjour ".$user['nom']);               
           }else return array("error", "Veuillez activer votre compte");
       }else return array("error", "Mauvais identifiants");

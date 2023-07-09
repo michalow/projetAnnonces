@@ -38,6 +38,7 @@ if(isset($_SESSION['id'])) {
         </div>
     </div>
 <?php endif; ?>
+
 <div class='row'>
 <h1 class='col-md-12 text-center border border-dark bg-primary text-white'>Mes données personnelles</h1>
 </div>

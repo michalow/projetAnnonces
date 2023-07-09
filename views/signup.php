@@ -1,9 +1,6 @@
 <div class="main">  	
-	<!-- <input type="checkbox" id="chk" aria-hidden="true"> -->
 	<div class="form-group">
 		<form method="POST" action="" enctype="multipart/form-data">
-			<!-- views/signup_traitement.php -->
-			<!-- <label for="chk" aria-hidden="true">Enregistrement</label>  -->
 			<input type="hidden" name="action" value="signup"> <!-- index.php signup switch pour pages -->
 			<div class="form-group mb-3">
 				<label for="name">Votre nom<span class="required">*</span></label>
@@ -72,20 +69,21 @@
 
   <hr>
 
+<!-- LOGIN -->
 	<div class="login" action="">
 		<form method="POST">
 			<!-- <label for="chk" aria-hidden="true">Login</label> --> <!-- pour savoir ce qu'il est traiter -->
 			<input type="hidden" name="action" value="login"> <!-- LOGIN -->
-			<div class="form-group mb-3">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" required="">
+		<div class="form-group mb-3">
+        	<label for="email">Email</label>
+        	<input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" required="">
 			</div>
       <!-- <div>
 				<input type="email" name="email" placeholder="Email" required="">
 			</div> -->
-			<div class="form-group mb-3">
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe" required="">
+		<div class="form-group mb-3">
+        	<label for="password">Mot de passe</label>
+        	<input type="password" id="password" name="password" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe" required="">
 			</div>
 			<!-- <div>
 				<input type="password" name="password" placeholder="Mot de passe" required="">
