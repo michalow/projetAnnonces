@@ -8,9 +8,10 @@ require_once __DIR__.'/models/functions2.php';
 /* }  */
 $p = $_GET['p'] ?? "";
 
+define("LIMIT", 10);
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){ // LOGGER ACTION
-	$action= $_POST['action'] ?? ""; //champ caché action
+	$action= $_POST['action'] ?? ""; 
 	switch ($action) { 
 		case 'signup': //input type hidden
 			$message=addUser(); //fonction et return message succès au pas
@@ -103,7 +104,10 @@ switch ($p) {
 		break;
 	case 'homme':
 		include "views/Annonces/homme.php";
-		break;		
+		break;
+	case 'enfant':
+		include "views/Annonces/enfant.php";
+		break;			
 		
 //MEMBRE
     case 'espace':
@@ -118,9 +122,9 @@ switch ($p) {
     case 'annonces_user_del': 
         include "views/Membre/annonce_delete.php";	
         break;             
-    case 'compte': 
+    /* case 'compte': 
         include "views/Membre/compte.php";	
-        break; 
+        break;  */
     case 'compte_form': 
         include "views/Membre/compte_form.php";	
         break;             

@@ -16,13 +16,22 @@ function alertMessage(){
         </div>
     <?php endif;} 
 
-function getAnnoncesPhotos(){
-    /*  SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, photos.url FROM annonces INNER JOIN photos ON annonces.id=photos.id_annonce WHERE annonces.date_validation IS NOT NULL ORDER BY date_validation DESC; */
+
+function generate_sql_limit($limit=LIMIT, $page=1){
+    if(!is_numeric($limit)) $limit = LIMIT;
+    $pagination = ' LIMIT '.$limit;
+    if(is_numeric($page) && $page > 1){
+      $offset = $limit*($page-1);
+      $pagination.= ' OFFSET '.$offset;
+    }
+    return $pagination;
+}
+
+function getAnnoncesPhotos($limit=10,$page=1){
     try {
         $db = connect();
-        $AnnoncesPhotosQuery = $db->query('SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, annonces.description, photos.url, annonces.id FROM annonces 
-        INNER JOIN photos ON annonces.id=photos.id_annonce 
-        WHERE annonces.date_validation IS NOT NULL ORDER BY date_validation DESC');
+        $AnnoncesPhotosQuery = $db->query('SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, annonces.description, photos.url, annonces.id FROM annonces INNER JOIN photos ON annonces.id=photos.id_annonce 
+        WHERE annonces.date_validation IS NOT NULL ORDER BY date_validation DESC'.generate_sql_limit($limit, $page));
         return $AnnoncesPhotosQuery->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -32,17 +41,17 @@ function getAnnoncesPhotos(){
 function getAnnoncesByCategory($category){
     try {
         $db = connect();
-        $AnnoncesCategoryQuery = $db->prepare('SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, annonces.description, photos.url, annonces.id FROM annonces 
-        INNER JOIN photos ON annonces.id=photos.id_annonce 
-        INNER JOIN categories_annonces ON annonces.id=categories_annonces.id_annonce 
-        INNER JOIN categories ON categories_annonces.id_categorie=categories.id 
-        WHERE annonces.date_validation IS NOT NULL AND id_categorie=:id_categorie ORDER BY date_validation DESC');
-        $AnnoncesCategoryQuery->execute(["id_categorie" => $category]);
+        $AnnoncesCategoryQuery = $db->prepare('SELECT a.*, photos.url, categories.nom_categorie FROM annonces AS a
+        INNER JOIN photos ON a.id=photos.id_annonce 
+        INNER JOIN categories_annonces AS ca ON a.id=ca.id_annonce 
+        INNER JOIN categories ON ca.id_categorie=categories.id 
+        WHERE a.date_validation IS NOT NULL AND nom_categorie=:nom_categorie ORDER BY date_validation DESC');
+        $AnnoncesCategoryQuery->execute(["nom_categorie" => $category]);
         if($AnnoncesCategoryQuery->rowCount()){
             return $AnnoncesCategoryQuery->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo 'Il n\'y a pas d\'annonces sous cette catégorie';
-        } 
+        }
     } catch (Exception $e) {
         echo $e->getMessage();
     }

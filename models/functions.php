@@ -98,6 +98,19 @@ function getAvatar($id) {
     return false;
 }
 
+function getMember($id){
+    try {
+        $db = connect();
+        $memberQuery=$db->prepare('SELECT * FROM membres WHERE id= :id');
+        $memberQuery->execute(['id' => $id]);
+        return $member = $memberQuery->fetch(PDO::FETCH_ASSOC); 
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    $membersQuery=null;
+    $db=null;
+}
+
 // enregistre les chemins des avatars
 function addAvatar($id) {
     $cpt=0;

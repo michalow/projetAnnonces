@@ -39,17 +39,18 @@ if(isset($keyword) && !empty(trim($keyword))){
           Accueil
           <span class="sr-only"></span></a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="index.php?p=femme" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Catégories
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="index.php?p=femme">Femme</a>
-          <a class="dropdown-item" href="index.php?p=homme">Homme</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Enfant</a>
-        </div>
-      </li>
+ 
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Catégories
+    </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="index.php?p=femme" type="button">Femme</a></li>
+        <li><a class="dropdown-item" href="index.php?p=homme" type="button">Homme</a></li>
+        <li><a class="dropdown-item" href="index.php?p=enfant" type="button">Enfant</a></li>
+      </ul>
+  </div>
+
       <li class="nav-item">
         <a class="nav-link" href="index.php?p=contact">
           Contact

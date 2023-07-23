@@ -12,4 +12,9 @@ Version :
     -intégration de l'espace admin dans l'index, changement de liens
     -ajout de champs pour le formulaire de modification d'annonce dans l'espce membre
     -création de formulaire annonce dans l'espace admin      
-     
+0.0.4
+    -intégration du code d'une page compte.php dans la page espace.php et suppression de cette page
+    -séparation de code php du html pour l'espace membre
+    -correction du code html dans le menu pour 'categories'
+    -débogage de pages de catégories
+    -début de pagination         
