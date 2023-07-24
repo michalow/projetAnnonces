@@ -10,7 +10,8 @@
     if($page <= 0) {
     $page = 1;
     }
-    
+
+    var_dump($_GET);
     var_dump($page);
     $limit=4;
 	$annoncesPhotos=getAnnoncesPhotos(); 

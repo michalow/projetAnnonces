@@ -17,4 +17,5 @@ Version :
     -séparation de code php du html pour l'espace membre
     -correction du code html dans le menu pour 'categories'
     -débogage de pages de catégories
-    -début de pagination         
+    -début de pagination
+    -correction avatar         
