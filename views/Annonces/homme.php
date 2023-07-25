@@ -2,7 +2,7 @@
 
 if(isset($_GET['p'])){
 	if($_GET['p']=='homme'){
-		$cat=$_GET['p'];
+		$cat=htmlentities($_GET['p']);
 			$annoncesCategory=getAnnoncesByCategory($cat);
 	}
 }

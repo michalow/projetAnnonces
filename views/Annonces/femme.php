@@ -1,11 +1,10 @@
 <?php 
-
-if(isset($_GET['p'])){
-	if($_GET['p']=='femme'){
-		$cat=$_GET['p'];
+	if(isset($_GET['p'])){
+		if($_GET['p']=='femme'){
+			$cat=htmlentities($_GET['p']);
 			$annoncesCategory=getAnnoncesByCategory($cat);
+		}
 	}
-}
 ?>
 
 <div class="main">
@@ -14,8 +13,8 @@ if(isset($_GET['p'])){
 		<section class="recent">
         
 <?php 	
-if(!empty($annoncesCategory)):
-	foreach($annoncesCategory as $annonceCategory):
+	if(!empty($annoncesCategory)):
+		foreach($annoncesCategory as $annonceCategory):
 ?>
 	<div>
 		<a href="index.php?p=annonces&id=<?= $annonceCategory["id"] ?>">
@@ -27,7 +26,7 @@ if(!empty($annoncesCategory)):
 		<div><?= $annonceCategory["prix_vente"];?></div>
 	</div>
 <?php
-	endforeach; 
+		endforeach; 
     endif;
 ?>
 		

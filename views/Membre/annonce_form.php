@@ -1,22 +1,16 @@
 <?php
- /* && $_SESSION */
-if(!empty($_GET['id'])){
-    // récupérer $id dans les paramètres d'URL
-    $idAnnonce = $_GET['id'];
-    /* var_dump($idAnnonce); */
-    $user = $_SESSION['id'];
-    /* $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
- */
-$annonces=getAnnoncesByIdAnnonce($idAnnonce);
-var_dump($annonces);
-$categories=getCategories();
-var_dump($categories);
-$etats=getEtats();
-var_dump($etats);
-} 
 
+    if(!empty($_GET['id'])){
+        $idAnnonce = htmlentities($_GET['id']);
+        $user = $_SESSION['id'];
+    
+        $annonces=getAnnoncesByIdAnnonce($idAnnonce);
+        $categories=getCategories();
+        $etats=getEtats();
+    } 
 
-if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
+    alertMessage();
+/* if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
     <div class='row'>
         <div class='alert alert-success'>
             Succès! <?= $_GET['message'] ?>
@@ -28,7 +22,8 @@ if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
             Erreur! <?= $_GET['message'] ?>
         </div>
     </div>
-<?php endif; ?>
+<?php endif; */
+?> 
 
 
 <div class='row'>
@@ -67,7 +62,7 @@ if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
             <label for='legende'>Legende</label>
             <input type="text" name="legende" id="legende" value="<?= htmlentities($annonces['legende'] ?? '') ?>">
         </div>
-       <!--  <div class='form-group my-3'>
+      <!--  <div class='form-group my-3'>
             <label for='etat'>Etat</label>
             <select class='custom-select' name='id_etat' id="etat">
                 
@@ -82,13 +77,15 @@ if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
         <div class='form-group my-3'>
             <label for='etat'>Etat</label>
             <select class='custom-select' name='id_etat' id="etat">
-        <?php foreach ($etats as $etat) : ?>
-            <option <?= (!empty($annonces['id_etat']) && $annonces['id_etat'] === $etat['nom']) ? 'selected' : '' ?> value='<?= $etat['nom'] ?>'>
-                <?= htmlentities($etat['nom']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
+
+                <?php foreach ($etats as $etat) : ?>
+                    <option <?= (!empty($annonces['id_etat']) && $annonces['id_etat'] === $etat['nom']) ? 'selected' : '' ?> value='<?= $etat['nom'] ?>'>
+                        <?= htmlentities($etat['nom']); ?>
+                    </option>
+                <?php endforeach; ?>
+
+            </select>   
+        </div>
         <div class='form-group my-3'>
             <label for='categorie'>Catégorie</label>
             <select class='custom-select' name='id_categorie' id='categorie'>

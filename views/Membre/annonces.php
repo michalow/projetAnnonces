@@ -1,29 +1,15 @@
 <?php
+    if(isset($_SESSION['id'])){
+        $user=$_SESSION['id'];
+        $annoncesByUser=getAnnoncesByUser($user);
+    }
 
-if(isset($_SESSION['id'])){
-    $user=$_SESSION['id'];
-    $annoncesByUser=getAnnoncesByUser($user);
-}
-
-$categories = getCategories();
-/* var_dump(getAnnoncesByUser(1)); */
+    $categories = getCategories();
 ?>
-<!-- if (!empty($_GET['type']) && ($_GET['type'] === 'success')) : ?>
-    <div class='row'>
-        <div class='alert alert-success'>
-            Succès! <?= $_GET['message'] ?>
-        </div>
-    </div>
-<!- php elseif (!empty($_GET['type']) && ($_GET['type'] === 'error')) : ?>
-    <div class='row'>
-        <div class='alert alert-danger'>
-            Erreur! <?= $_GET['message'] ?>
-        </div>
-    </div>
-< php endif; ?> -->
+
 
 <div class='row'>
-<h1 class='col-md-12 text-center border border-dark text-white bg-primary'>Annonces</h1>
+    <h1 class='col-md-12 text-center border border-dark text-white bg-primary'>Annonces</h1>
 </div>
 <div class='row'>
     <table class='table table-striped'>

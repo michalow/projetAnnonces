@@ -27,7 +27,7 @@ function generate_sql_limit($limit=LIMIT, $page=1){
     return $pagination;
 }
 
-function getAnnoncesPhotos($limit=10,$page=1){
+function getAnnoncesPhotos($limit=4,$page=2){
     try {
         $db = connect();
         $AnnoncesPhotosQuery = $db->query('SELECT annonces.titre, annonces.prix_vente, annonces.id_etat, annonces.description, photos.url, annonces.id FROM annonces INNER JOIN photos ON annonces.id=photos.id_annonce 
@@ -119,7 +119,6 @@ function getAnnoncesByIdAnnonce($idAnnoncement){
         echo $e->getMessage();
     }    
 }
-
 
 function NbrChars($texte){
     $max=250;

@@ -1,15 +1,9 @@
 <?php
-require_once '../../models/functions.php';
-
-// L'ID est-il dans les paramètres d'URL?
 if (isset($_GET['id'])) {
-
-    // Récupérer $id depuis l'URL
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     try {
         $db = connect();
-        // Avant de supprimer une categorie, on vérifie qu'aucune annonce l'utilise
         $membersQuery = $db->prepare('SELECT m.*, a.titre, a.id AS id_utilisateur, a.fin_publication FROM membres AS m INNER JOIN annonces AS a ON m.id=a.id_utilisateur WHERE m.id =:id');
         
         $membersQuery->execute(['id' => $id]);
@@ -45,7 +39,7 @@ if (isset($_GET['id'])) {
     $db = null;
 
     // Redirection vers la page principale des categories en passant le message et son type en variables GET
-    header('location:' . 'membres.php?type=' . $type . '&message=' . $message);
-} else {
+    header('location:' . 'membres.php?type=' . $type . '&message=' . $message); 
+} /* else {
     header('location:' . 'index.php');
-}
+}  */

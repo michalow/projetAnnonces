@@ -1,9 +1,6 @@
-
-
 <form action="" method="post">
     <div>    
         <label for="password">Nouveau mot de passe</label>
-        <!-- index switch ACTION POST["action"]-->
         <input type="hidden" name="action" value="reset"> 
 		<input type="hidden" name="token" value="<?=$token?>">
 
@@ -11,7 +8,7 @@
     </div>
     <div>    
         <label for="password_conf">Confirmation de nouveau mot de passe</label>
-        <input type="password" name="password_conf" id="password_conf" placeholder="nouveau mot de passe" required> <!-- au lieu de pwd chez moi il y a password et pwd2 password_conf -->
+        <input type="password" name="password_conf" id="password_conf" placeholder="nouveau mot de passe" required> 
     </div> 
     <div>   
         <input type="submit" value="Se connecter">

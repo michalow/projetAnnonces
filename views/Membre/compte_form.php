@@ -1,16 +1,14 @@
 <?php
-if(isset($_SESSION['id'])) {
-    $id=$_SESSION['id'];
-    /* $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT); */
-    $member=getMember($id);
-}
+    if(isset($_SESSION['id'])) {
+        $id=$_SESSION['id'];
+        $member=getMember($id);
+    }
 
-alertMessage();
+    alertMessage();
 ?>
 
-
 <div class='row'>
-<h1 class='col-md-12 text-center border border-dark bg-primary text-white'>Mon compte à modifier</h1>
+    <h1 class='col-md-12 text-center border border-dark bg-primary text-white'>Mon compte à modifier</h1>
 </div>
 <div class='row'>
     <form method='post' action=''>

@@ -122,9 +122,6 @@ switch ($p) {
     case 'annonces_user_del': 
         include "views/Membre/annonce_delete.php";	
         break;             
-    /* case 'compte': 
-        include "views/Membre/compte.php";	
-        break;  */
     case 'compte_form': 
         include "views/Membre/compte_form.php";	
         break;             
@@ -155,9 +152,22 @@ switch ($p) {
 		break;			
 	case 'etats':
 		include "views/Admin/etats.php";	
-		break;					
+		break;	
+	case 'membres':
+		include "views/Admin/membres.php";	
+		break;
+	case 'membre_form':
+		include "views/Admin/membre_form.php";	
+		break;
+	case 'membre_val':
+		include "views/Admin/membre_valide.php";	
+		break;		
+	case 'membre_del':
+		include "views/Admin/membre_delete.php";	
+		break;				
+		
 	default:
-		include "views/home.php";	//si $p vide c'est une page HOME ; $p = $_GET['p'] ?? ""; sinon "" vide
+		include "views/home.php";	
 } 
 
 include __DIR__."/views/common/footer.php";

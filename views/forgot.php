@@ -1,17 +1,3 @@
-<!-- <form action="" method="post">
-    <div>    //formulaire réinitialisation
-        <label for="password">Nouveau mot de passe</label>
-        <input type="password" name="password" id="password" placeholder="nouveau mot de passe">
-    </div>
-    <div>    
-        <label for="password_conf">Confirmation de nouveau mot de passe</label>
-        <input type="password" name="password_conf" id="password_conf" placeholder="nouveau mot de passe">
-    </div> 
-    <div>   
-        <input type="submit" value="Se connecter">
-    </div>
-</form> -->
-
 <div class='main'>
     <div class="forgot">
     <form action="" method="post">

@@ -1,28 +1,17 @@
 <?php
+    try {
+        $db = connect();
+        $membersQuery = $db->query('SELECT * FROM membres ORDER BY date_inscription LIMIT 10');
+        $members = $membersQuery->fetchAll(PDO::FETCH_ASSOC);;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
 
-/* require_once '../../models/functions.php';
-require_once '../../models/functions2.php';
-include_once '../common/header.php';
-include_once '../common/admin_nav.php'; */
-
-try {
-    $db = connect();
-
-    $membersQuery = $db->query('SELECT * FROM membres ORDER BY date_inscription LIMIT 10'); //???
-    //is_admin, 
-    $members = $membersQuery->fetchAll(PDO::FETCH_ASSOC);;
-
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-
-try {
-    alertMessage();
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-
-
+    try {
+        alertMessage();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
 ?>
 
 <div class='row'>
@@ -45,8 +34,7 @@ try {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($members as $member) :
-                var_dump($_SESSION); ?>
+            <?php foreach ($members as $member) : ?>
                 <tr>
                     <td><?= $member['id'] ?></td>
                     <td><?= htmlentities($member['prenom'] ?? '') ?></td>
@@ -61,7 +49,7 @@ try {
                     <td><?= htmlentities($member['actif'] ?? '') ?></td>
                     <td><?= htmlentities($member['is_admin'] ?? '') ?></td>
                     <td>
-                        <a class='btn btn-danger' href='membre_delete.php?id=<?= $member['id'] ?>' role='button'>Supprimer</a>
+                        <a class='btn btn-danger' href='index.php?p=membre_del&id=<?= $member['id'] ?>' role='button'>Supprimer</a>
                     </td>
                     <td>
                     <?php if($member['actif']==0) 
@@ -76,10 +64,8 @@ try {
         </tbody>
     </table>
 </div>
-<!-- <div class='row'>
+<div class='row'>
     <div class='col'>
-        <a class='btn btn-success' href='membre_form.php' role='button'>Ajouter membre</a>
+        <a class='btn btn-success' href='index.php?p=membre_form' role='button'>Ajouter membre</a>
     </div>
-</div> -->
-
-<?php include_once '../common/footer.php' ?>
+</div>

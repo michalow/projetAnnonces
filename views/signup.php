@@ -1,7 +1,7 @@
 <div class="main">  	
 	<div class="form-group">
 		<form method="POST" action="" enctype="multipart/form-data">
-			<input type="hidden" name="action" value="signup"> <!-- index.php signup switch pour pages -->
+			<input type="hidden" name="action" value="signup"> 
 			<div class="form-group mb-3">
 				<label for="name">Votre nom<span class="required">*</span></label>
 				<input type="text" id="name" name="nom" class="form-control" placeholder="Nom" minlength=2 maxlength=25 autocomplete required="*">
@@ -29,37 +29,22 @@
 				<label for="cp">Code postale<span class="required">*</span></label>
 				<input type="number" id="cp" name="cp" class="form-control" aria-describedby="" placeholder="Code Postal" autocomplete required="*">
 			</div>
-      <div class="form-group mb-3">
-        <label for="city">Ville<span class="required">*</span></label>
-        <input type="text" id="city" name="city" class="form-control" aria-describedby="" placeholder="Ville" required="*" autocomplete>
+      		<div class="form-group mb-3">
+        		<label for="city">Ville<span class="required">*</span></label>
+        		<input type="text" id="city" name="city" class="form-control" aria-describedby="" placeholder="Ville" required="*" autocomplete>
 			</div>
-			<!-- <div>
-				<label for="city">Ville<span class="required">*</span></label>
-				<input type="text" id="city" name="city" placeholder="Ville" autocomplete required="*">
-			</div> -->
 			<div class="form-group mb-3">
-        <label for="email">Votre Email<span class="required">*</span></label>
-        <input type="email" id="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
-        
-				<!-- <label for="email">Votre Email<span class="required">*</span></label>
-				<input type="email" id="email" name="email" placeholder="Email" required=""> -->
+        		<label for="email">Votre Email<span class="required">*</span></label>
+        		<input type="email" id="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
 			</div>
-      <div class="form-group mb-3">
-        <label for="password">Mot de passe<span class="required">*</span></label>
-        <input type="password" id="password" name="password" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe" required="" pattern="^(?=.*\d)(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}$" title="Le mot de passe doit comporter au moins 8 caractères dont au moins 1 chiffre, 1 minuscule, 1 majuscule et 1 caractères spécial">
+      		<div class="form-group mb-3">
+        		<label for="password">Mot de passe<span class="required">*</span></label>
+        		<input type="password" id="password" name="password" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe" required="" pattern="^(?=.*\d)(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}$" title="Le mot de passe doit comporter au moins 8 caractères dont au moins 1 chiffre, 1 minuscule, 1 majuscule et 1 caractères spécial">
 			</div>
-			<!-- <div>
-				<label for="password">Mot de passe<span class="required">*</span></label>
-				<input type="password" id="password" name="password" placeholder="Mot de passe" required="" pattern="^(?=.*\d)(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}$" title="Le mot de passe doit comporter au moins 8 caractères dont au moins 1 chiffre, 1 minuscule, 1 majuscule et 1 caractères spécial">
-			</div> -->
-      <div class="form-group mb-3">
-        <label for="password_conf">Confirmation de mot de passe<span class="required">*</span></label>
-        <input type="password" id="password_conf" name="password_conf" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe" required="">
+			<div class="form-group mb-3">
+				<label for="password_conf">Confirmation de mot de passe<span class="required">*</span></label>
+				<input type="password" id="password_conf" name="password_conf" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe" required="">
 			</div>
-			<!-- <div>
-				<label for="password_conf">Mot de passe<span class="required">*</span></label>
-				<input type="password" id="password_conf" name="password_conf" placeholder="Confirmation du mot de passe" required="">
-			</div> -->
 			<div class="mb-3">
 				<input type="file" name="avatar[]" accept="image/*" multiple>
 			</div>
@@ -72,25 +57,17 @@
 <!-- LOGIN -->
 	<div class="login" action="">
 		<form method="POST">
-			<!-- <label for="chk" aria-hidden="true">Login</label> --> <!-- pour savoir ce qu'il est traiter -->
-			<input type="hidden" name="action" value="login"> <!-- LOGIN -->
-		<div class="form-group mb-3">
-        	<label for="email">Email</label>
-        	<input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" required="">
+			<input type="hidden" name="action" value="login">
+			<div class="form-group mb-3">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" required="">
 			</div>
-      <!-- <div>
-				<input type="email" name="email" placeholder="Email" required="">
-			</div> -->
-		<div class="form-group mb-3">
-        	<label for="password">Mot de passe</label>
-        	<input type="password" id="password" name="password" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe" required="">
-			</div>
-			<!-- <div>
-				<input type="password" name="password" placeholder="Mot de passe" required="">
-			</div> -->
+			<div class="form-group mb-3">
+				<label for="password">Mot de passe</label>
+				<input type="password" id="password" name="password" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe" required="">
+			</div>		
 			<button type="submit" class="btn btn-primary">Login</button>
-			<a href="index.php?p=forgot">Mot de passe oublié ?</a> <!-- mdp oublié paramétre d'url p ?P=FORGOT -->
-			<!-- LIEN mdp oublie -->
+			<a href="index.php?p=forgot">Mot de passe oublié ?</a> 
 		</form>
 	</div>
 </div>
