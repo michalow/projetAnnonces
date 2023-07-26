@@ -5,31 +5,22 @@ if (isset($_GET['id'])) {
 
     try {
         $db = connect();
-    
         $announcementsQuery = $db->prepare('UPDATE annonces SET date_validation=CURRENT_TIMESTAMP WHERE id =:id');
-        
         $announcementsQuery->execute(['id' => $id]);
         if($announcementsQuery->rowCount()){
-            $type = 'success';
-            $message = ['Annonce a été validée'];
+            $message[0] = 'success';
+            $message[1] = 'Annonce a été validée';
         } else {
-            $type = 'error';
-            $message = ['Annonce n\'a pas été validée'];
+            $message[0] = 'error';
+            $message[1] = 'Annonce n\'a pas été validée';
         }
-
         $announcements = $announcementsQuery->fetch(PDO::FETCH_ASSOC);
-        // Si un membre utilise la catégorie, création d'une erreur et redirection sur la page des catégorie
         
     } catch (Exception $e) {
-        $type = 'error';
-        $message = ['Exception message: ' . $e->getMessage()];
+        $message[0] = 'error';
+        $message[1] = 'Exception message: ' . $e->getMessage();
     }
     
-    $announcementsQuery = null;
-    $db = null;
-
-    // Redirection vers la page principale des categories en passant le message et son type en variables GET
-header('location:' . 'annonces.php?type=' . $type . '&message=' . $message);
-} /* else {
-    header('location:' . 'index.php');
-} */
+    //header("location: index.php?p=annonces_admin&type=".$message[0]."&message=".$message[1]);
+    
+} 

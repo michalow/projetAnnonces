@@ -1,11 +1,11 @@
 <?php 
 session_start();
+
+$message=[];
+
 require_once __DIR__.'/models/functions.php';
 require_once __DIR__.'/models/functions2.php';
 
-/* if(isset($_GET['p'])) { */
-	/* $p = $_GET['p']; */
-/* }  */
 $p = $_GET['p'] ?? "";
 
 define("LIMIT", 10);
@@ -37,7 +37,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){ // LOGGER ACTION
 			$p="signup";
 			break;
 		case 'compte_edit':
-			//traitement
 			include 'views/Membre/compte_edit.php';
 			$p="compte_form";
 			/* header('location:' . $p .'?type=' . $type . '&message=' . $message); */
@@ -58,11 +57,11 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){ // LOGGER ACTION
 }
 
 // ETAT CONNECTE ET DECONNECTE ET MDP OUBLIE OU REINITIALISE GESTION DE SESSIONS
-if ($p=='activation') //si page activation $p //activation par mail LIEN D ACTIVATION AVEC TOKEN
+if ($p=='activation') 
 	$message=activUser(); 
 if ($p=='deconnect'){ 
 	session_unset(); 
-	session_destroy(); // 2 unset et destroy parce que certains navigateur ne support pas une
+	session_destroy(); 
 	$message=array("success", "Vous êtes déconnecté"); 
 }
 if ($p=='reset' && !isset($_GET['t'])){ 
@@ -171,6 +170,5 @@ switch ($p) {
 } 
 
 include __DIR__."/views/common/footer.php";
-
 ?>
 

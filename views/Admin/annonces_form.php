@@ -6,12 +6,12 @@ if(!empty($_GET['id'])){
     /* var_dump($idAnnonce); */
     /* $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
  */
-$annonces=getAnnoncesByIdAnnonce($idAnnonce);
-var_dump($annonces);
-$categories=getCategories();
-var_dump($categories);
-$etats=getEtats();
-var_dump($etats);
+    $annonces=getAnnoncesByIdAnnonce($idAnnonce);
+    var_dump($annonces);
+    $categories=getCategories();
+    var_dump($categories);
+    $etats=getEtats();
+    var_dump($etats);
 } 
 
 

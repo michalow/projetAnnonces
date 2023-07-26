@@ -10,7 +10,7 @@
 <body>
 <?php if (!empty($message)) : ?>
     <div class='row'>
-        <div class='alert alert-<?=$message[0]?>'>
+        <div class='alert alert-<?= $message[0] ?>'>
             <?= $message[1] ?>
         </div>
     </div>

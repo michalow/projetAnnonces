@@ -17,6 +17,16 @@ function alertMessage(){
     <?php endif;} 
 
 
+function alertMessage2($message){
+    
+    if (!empty($message[0]) && !empty($message[1])) : ?>
+        <div class='row'>
+            <div class='alert alert-<?= $message[0] ?>'>
+                <?= $message[1] ?>
+            </div>
+        </div>
+    <?php endif;} 
+
 function generate_sql_limit($limit=LIMIT, $page=1){
     if(!is_numeric($limit)) $limit = LIMIT;
     $pagination = ' LIMIT '.$limit;

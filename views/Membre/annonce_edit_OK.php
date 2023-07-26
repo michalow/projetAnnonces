@@ -1,7 +1,5 @@
 <?php
 
-/* require_once '../../models/functions.php'; */
-/* var_dump($_POST); */
 if (isset($_POST)) {
     $id = $_POST['id'];
     $user = $_SESSION['id'];
